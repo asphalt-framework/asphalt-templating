@@ -32,14 +32,13 @@ class TemplatingComponent(Component):
 
     def __init__(self, renderers: Dict[str, Dict[str, Any]] = None, **default_renderer_args):
         assert check_argument_types()
-        renderers = renderers or {}
-        if default_renderer_args:
+        if not renderers:
             default_renderer_args.setdefault('context_attr', default_renderer_args.get('backend'))
-            renderers['default'] = default_renderer_args
+            renderers = {'default': default_renderer_args}
 
         self.renderers = []
         for resource_name, config in renderers.items():
-            config = merge_config(default_renderer_args, config)
+            config = merge_config(default_renderer_args, config or {})
             config.setdefault('backend', resource_name)
             config.setdefault('context_attr', resource_name)
             context_attr, renderer = self.configure_renderer(**config)
