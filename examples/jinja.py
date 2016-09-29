@@ -1,39 +1,29 @@
 """
-A ContainerComponent demonstrating utilizing a custom loader_class
-for the jinja2 backend. The jinja2 renderer is used to render the
-``demo.jinja2`` template with a new unique identifier each time it
-is rendered.
+A simple example that renders a Jinja2 template and prints out the result.
 
-Any keyword arguments other than those specified by the
-``Jinja2Renderer`` class  are passed directly to the ``__init__``
-method of the ``loader_class``. Please see the `Jinja2 API Docs
-<http://jinja.pocoo.org/docs/dev/api/#loaders>`_ for more detail.
+Notice that this example uses FileSystemLoader instead of the default PackageLoader because this
+script is not part of a package. In practical applications, however, it is recommended to store
+the templates in a directory within the application's package tree and use PackageLoader with the
+``package_name`` option so they can be accessed regardless of where the application has been
+installed.
 """
 
-# Standard library imports
-import asyncio
 from pathlib import Path
 from uuid import uuid1
 
-# Local imports
-from asphalt.core import ContainerComponent, Context, run_application
+from asphalt.core import CLIApplicationComponent, Context, run_application
 from jinja2 import FileSystemLoader
 
 
-class ApplicationComponent(ContainerComponent):
-
+class ApplicationComponent(CLIApplicationComponent):
     async def start(self, ctx: Context):
-        """Add a rendering component, then render and print a document"""
-        current_directory = str(Path(__file__).parent)
-        # Note the arguments here will differ depending on your `loader_class`
-        self.add_component('templating', backend='jinja2',
-                           loader_class=FileSystemLoader,
-                           searchpath=current_directory)
+        this_directory = str(Path(__file__).parent)
+        self.add_component('templating', backend='jinja2', loader_class=FileSystemLoader,
+                           searchpath=this_directory)
         await super().start(ctx)
 
-        uuid = uuid1()
-        rendered = ctx.jinja2.render('demo.jinja2', uuid=uuid)
+    async def run(self, ctx: Context):
+        rendered = ctx.jinja2.render('demo.jinja2', uuid=uuid1())
         print(rendered)
-        asyncio.get_event_loop().stop()
 
 run_application(ApplicationComponent())
