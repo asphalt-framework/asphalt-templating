@@ -16,20 +16,16 @@ templating renderers:
 
 Additional backends may be provided through third party plugins.
 
-Project links
--------------
-
-* `Documentation`_
-* `Help and support`_
-* `Source code`_
-* `Issue tracker`_
-
 .. _Django: https://docs.djangoproject.com/en/stable/topics/templates/
 .. _Jinja2: http://jinja.pocoo.org/
 .. _Mako: http://www.makotemplates.org/
 .. _Tonnikala: https://github.com/ztane/Tonnikala
 .. _Tornado: http://www.tornadoweb.org/en/stable/template.html
-.. _Documentation: http://asphalt-templating.readthedocs.org/
-.. _Help and support: https://github.com/asphalt-framework/asphalt/wiki/Help-and-support
-.. _Source code: https://github.com/asphalt-framework/asphalt-templating
-.. _Issue tracker: https://github.com/asphalt-framework/asphalt-templating/issues
+
+Project links
+-------------
+
+* `Documentation <http://asphalt-templating.readthedocs.org/>`_
+* `Help and support <https://github.com/asphalt-framework/asphalt/wiki/Help-and-support>`_
+* `Source code <https://github.com/asphalt-framework/asphalt-templating>`_
+* `Issue tracker <https://github.com/asphalt-framework/asphalt-templating/issues>`_
