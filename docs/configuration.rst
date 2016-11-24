@@ -49,7 +49,7 @@ configuration option::
         renderers:
           django:
             package_paths:
-              - myapp.somepackage/templates/mako
+              - myapp.somepackage/templates/django
           jinja2:
             package_name: myapp.somepackage
             package_path: templates/jinja2
