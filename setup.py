@@ -40,7 +40,12 @@ setup(
         'mako': 'Mako >= 1.0.1',
         'jinja2': 'Jinja2 >= 2.7.3',
         'tonnikala': 'tonnikala >= 1.0.0b1',
-        'tornado': 'tornado >= 4.3.0'
+        'tornado': 'tornado >= 4.3.0',
+        'testing': [
+            'pytest',
+            'pytest-cov',
+            'pytest-asyncio >= 0.5.0'
+        ]
     },
     entry_points={
         'asphalt.components': [
