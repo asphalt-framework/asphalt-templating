@@ -15,19 +15,23 @@ class TemplatingComponent(Component):
     """
     Creates one or more :class:`~asphalt.templating.api.TemplateRenderer` resource factories.
 
-    If more than one renderer is to be configured, provide a ``renderers`` argument as a dictionary
-    where the key is the resource name and the value is a dictionary of keyword arguments to
-    :meth:`configure_renderer`. Otherwise, directly pass those keyword arguments to the component
-    constructor itself.
+    Template renderers can be configured in two ways:
 
-    If ``renderers`` is defined, any extra keyword arguments are used as default values for
-    :meth:`configure_renderer` for all renderers (:func:`~asphalt.core.util.merge_config` is used
-    to merge the per-renderer arguments with the defaults). Otherwise, a single renderer is created
-    based on the provided default arguments, with ``context_attr`` defaulting to the name of the
-    chosen backend.
+    #. a single renderer, with configuration supplied directly as keyword arguments to this
+        component's constructor (with the resource name being ``default`` and the context attribute
+        matching the backend name)
+    #. multiple renderers, by providing the ``renderers`` option where each key is the resource
+        name and each value is a dictionary containing that renderer's configuration (with the
+        context attribute matching the resource name by default)
 
-    :param renderers: a dictionary of resource name ⭢ constructor arguments for the chosen backend
-        class
+    Each renderer configuration has two special options that are not passed to the constructor of
+    the backend class:
+
+    * backend: entry point name of the renderer backend class (required)
+    * context_attr: name of the context attribute of the renderer resource factory
+
+    :param renderers: a dictionary of resource name ⭢ constructor arguments for the chosen
+        backend class
     :param default_renderer_args: default values for constructor keyword arguments
     """
 
