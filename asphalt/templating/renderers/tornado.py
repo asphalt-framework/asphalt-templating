@@ -3,7 +3,7 @@ from tornado.template import Loader, Template
 from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer
-from asphalt.templating.util import package_to_directory
+from asphalt.templating.utils import package_to_directory
 
 
 class TornadoRenderer(TemplateRenderer):

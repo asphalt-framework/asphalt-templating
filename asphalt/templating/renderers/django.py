@@ -5,7 +5,7 @@ from django.template.context import Context
 from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer
-from asphalt.templating.util import package_to_directory
+from asphalt.templating.utils import package_to_directory
 
 
 class DjangoRenderer(TemplateRenderer):

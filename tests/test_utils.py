@@ -2,7 +2,7 @@ import pytest
 from pathlib import Path
 
 import asphalt.templating
-from asphalt.templating.util import package_to_directory
+from asphalt.templating.utils import package_to_directory
 
 BASEDIR = Path(asphalt.templating.__file__).parent
 

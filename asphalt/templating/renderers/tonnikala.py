@@ -3,7 +3,7 @@ from typing import Iterable
 from tonnikala import FileLoader
 
 from asphalt.templating.api import TemplateRenderer
-from asphalt.templating.util import package_to_directory
+from asphalt.templating.utils import package_to_directory
 
 
 class TonnikalaRenderer(TemplateRenderer):

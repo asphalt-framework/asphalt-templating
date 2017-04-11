@@ -33,7 +33,7 @@ setup(
         'setuptools_scm >= 1.7.0'
     ],
     install_requires=[
-        'asphalt ~= 2.0'
+        'asphalt ~= 3.0'
     ],
     extras_require={
         'django': 'Django >= 1.9.0',
