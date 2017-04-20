@@ -38,6 +38,33 @@ The same can be done directly in Python code as follows::
             await super().start()
 
 
+Note that the component API differs slightly for ``jinja2``. The call
+to ``add_component`` for ``jinja2`` takes an optional ``loader_class`` argument
+and arbitrary keyword arguments. All additional keyword arguments are
+passed directly to the loader class. See the api documentation for more detail
+regarding the options and defaults for the ``jinja2`` renderer, and be aware
+that the acceptable keyword arguments will correspond to whatever
+loader class you are using.
+
+.. note::
+    In Python, a keyword argument with the same name as an expected positional
+    argument will be utilized for that positional argument. A function
+    ``def some_func(a, b=None): pass`` can be called with
+    ``some_func({'b': 'bar', 'a': 'foo'})``, in which case the value of ``a``
+    will be ``foo``, and the value of ``b`` will be ``bar``.
+
+A basic example of adding a ``jinja2`` rendering component is as follows. In
+this example, the ``package_name`` keyword argument is passed to the default
+``PackageLoader`` loader class as its first positional argument, and it will
+then search for templates in ``myapp/templates`` by default::
+
+    class ApplicationComponent(ContainerComponent):
+        async def start(ctx: Context):
+            self.add_component('templating', backend='jinja2',
+                               package_name='myapp')
+            await super().start()
+
+
 Multiple renderers
 ------------------
 
