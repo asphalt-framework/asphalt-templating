@@ -1,16 +1,52 @@
+language: python
 sudo: false
 
-language: python
+jobs:
+  include:
+    - env: TOXENV=py35
+      python: "3.5"
 
-python:
-  - "3.5"
-  - "3.6"
+    - env: TOXENV=py36
+      python: "3.6"
 
-install: pip install tox-travis coveralls
+    - env: TOXENV=pypy3
+      python: pypy3
+      after_success: skip
+
+    - env: TOXENV=flake8
+      python: "3.5"
+      after_success: skip
+
+    - env: TOXENV=mypy
+      python: "3.5"
+      after_success: skip
+
+    - stage: deploy to PyPI
+      python: "3.5"
+      install: pip install -U setuptools
+      script: skip
+      after_success: true
+      deploy:
+        provider: pypi
+        user: agronholm
+        password:
+          secure: GKXgo5gQVNo5FQx/jvYjw0wQp/1hhZRAfozr+zWucRxdfbVBFGtdhAQZSAt9bVa9UcgriVtGd8vIFQMvPEh/8fKWJ8atTxdR8iLbI8ujl6lRqUB4y0q4Umkv90BuXcVMQPzddpwYTN26CK3Ajb8Q58fiRruDa3g+QL3JZOh/h0fMKwZ84pd/Gz5xfcHAsb1iykoWC+iECN5VWW7bZ+UN5zGToULrZ3N3pwhOope7cWLH99FGgc9JfcU+Ttk+wVOUdxmWGHY4JOuwRppsEgdA3pPhVRgFbFFxJlXNEtcUPNtHuJ3OQC/xdYfF/sVJ68UfX4Lqm83LImxrxkXKmCGoNA+c98Zi4KozvlFbGeFdJXHPECjhOu1IusZc80cIwtdBiqblJFw097R13AF1WZiDVBLWBEGdu17YFlmaHLCDn1YlQsEXJmrfj0+tabP0yb1Ibon8TP0MGMdOyJLeZrYYMLl4eP6TJDY46c8r67NUShhuDyn9VduVJwNaOt3GLihp+CO5fxLnn01rdwOQ1B5ORmXfWR5CyEehdm0qWOfhdAPtu8pro4Zl5WRg+RIQNi2VyF5o7oHN/ta0hwpnQ/d0uJx6140aH1EIx4OSzZaOeA223IJZWeySgBz1MEIMwQFSZPrXaTsKgDI0My4eaBGKkhEK2uFJcLt4vnKWWMRg760=
+        distributions: sdist bdist_wheel
+        on:
+          tags: true
+          repo: asphalt-framework/asphalt-templating
+  allow_failures:
+    - env: TOXENV=mypy
+
+install:
+  - pip install -U setuptools
+  - pip install tox
 
 script: tox
 
-after_success: coveralls
+after_success:
+  - pip install coveralls
+  - coveralls
 
 notifications:
   webhooks:
@@ -23,14 +59,3 @@ notifications:
     on_failure: change
     use_notice: true
     skip_join: true
-
-deploy:
-  provider: pypi
-  user: agronholm
-  password:
-    secure: GKXgo5gQVNo5FQx/jvYjw0wQp/1hhZRAfozr+zWucRxdfbVBFGtdhAQZSAt9bVa9UcgriVtGd8vIFQMvPEh/8fKWJ8atTxdR8iLbI8ujl6lRqUB4y0q4Umkv90BuXcVMQPzddpwYTN26CK3Ajb8Q58fiRruDa3g+QL3JZOh/h0fMKwZ84pd/Gz5xfcHAsb1iykoWC+iECN5VWW7bZ+UN5zGToULrZ3N3pwhOope7cWLH99FGgc9JfcU+Ttk+wVOUdxmWGHY4JOuwRppsEgdA3pPhVRgFbFFxJlXNEtcUPNtHuJ3OQC/xdYfF/sVJ68UfX4Lqm83LImxrxkXKmCGoNA+c98Zi4KozvlFbGeFdJXHPECjhOu1IusZc80cIwtdBiqblJFw097R13AF1WZiDVBLWBEGdu17YFlmaHLCDn1YlQsEXJmrfj0+tabP0yb1Ibon8TP0MGMdOyJLeZrYYMLl4eP6TJDY46c8r67NUShhuDyn9VduVJwNaOt3GLihp+CO5fxLnn01rdwOQ1B5ORmXfWR5CyEehdm0qWOfhdAPtu8pro4Zl5WRg+RIQNi2VyF5o7oHN/ta0hwpnQ/d0uJx6140aH1EIx4OSzZaOeA223IJZWeySgBz1MEIMwQFSZPrXaTsKgDI0My4eaBGKkhEK2uFJcLt4vnKWWMRg760=
-  distributions: sdist bdist_wheel
-  on:
-    tags: true
-    python: "3.5"
-    repo: asphalt-framework/asphalt-templating

@@ -1,0 +1,11 @@
+type: sphinx
+python:
+  version: "3.5"
+  pip_install: true
+  extra_requirements:
+    - doc
+    - django
+    - jinja2
+    - mako
+    - tonnikala
+    - tornado
