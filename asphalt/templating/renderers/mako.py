@@ -24,15 +24,15 @@ class MakoRenderer(TemplateRenderer):
 
     __slots__ = 'lookup'
 
-    def __init__(self, package_paths: Iterable[str] = (), **lookup_options):
+    def __init__(self, package_paths: Iterable[str] = (), **lookup_options) -> None:
         directories = lookup_options.setdefault('directories', [])
         directories.extend(package_to_directory(pkg_path) for pkg_path in package_paths)
         lookup_options.setdefault('filesystem_checks', __debug__)
         self.lookup = TemplateLookup(**lookup_options)
 
     def render(self, template: str, **vars) -> str:
-        template = self.lookup.get_template(template)
-        return template.render(**vars)
+        compiled_template = self.lookup.get_template(template)
+        return compiled_template.render(**vars)
 
     def render_string(self, source: str, **vars) -> str:
         template = Template(source)

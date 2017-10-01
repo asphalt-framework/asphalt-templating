@@ -18,14 +18,14 @@ class TonnikalaRenderer(TemplateRenderer):
 
     __slots__ = 'loader'
 
-    def __init__(self, package_paths: Iterable[str] = (), **loader_args):
+    def __init__(self, package_paths: Iterable[str] = (), **loader_args) -> None:
         paths = loader_args.setdefault('paths', [])
         paths.extend(package_to_directory(pkg_path) for pkg_path in package_paths)
         self.loader = FileLoader(**loader_args)
 
     def render(self, template: str, **vars) -> str:
-        template = self.loader.load(template)
-        return template.render(vars)
+        compiled_template = self.loader.load(template)
+        return compiled_template.render(vars)
 
     def render_string(self, source: str, **vars) -> str:
         template = self.loader.load_string(source)

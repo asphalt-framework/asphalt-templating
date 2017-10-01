@@ -13,7 +13,11 @@ def package_to_directory(package_path: str) -> str:
     :raises LookupError: if the directory does not exist
 
     """
-    pkgname, subpath = package_path.split('/', 1) if '/' in package_path else (package_path, '')
+    if '/' in package_path:
+        pkgname, subpath = package_path.split('/', 1)
+    else:
+        pkgname, subpath = package_path, ''
+
     module = import_module(pkgname)
     path = Path(module.__spec__.origin).parent / subpath
     if path.exists():

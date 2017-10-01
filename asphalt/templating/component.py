@@ -1,6 +1,6 @@
 import logging
 from functools import partial
-from typing import Dict, Any
+from typing import Dict, Any, List, Tuple  # noqa: F401
 
 from asphalt.core import Component, Context, PluginContainer, merge_config, qualified_name
 from typeguard import check_argument_types
@@ -35,13 +35,14 @@ class TemplatingComponent(Component):
     :param default_renderer_args: default values for constructor keyword arguments
     """
 
-    def __init__(self, renderers: Dict[str, Dict[str, Any]] = None, **default_renderer_args):
+    def __init__(self, renderers: Dict[str, Dict[str, Any]] = None,
+                 **default_renderer_args) -> None:
         assert check_argument_types()
         if not renderers:
             default_renderer_args.setdefault('context_attr', default_renderer_args.get('backend'))
             renderers = {'default': default_renderer_args}
 
-        self.renderers = []
+        self.renderers = []  # type: List[Tuple]
         for resource_name, config in renderers.items():
             config = merge_config(default_renderer_args, config or {})
             type_ = config.pop('backend', resource_name)

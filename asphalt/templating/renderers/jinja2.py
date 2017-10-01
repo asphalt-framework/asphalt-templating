@@ -25,7 +25,7 @@ class Jinja2Renderer(TemplateRenderer):
     __slots__ = 'environment'
 
     def __init__(self, environment: Union[Environment, Dict[str, Any]] = None,
-                 loader_class: Union[type, str] = PackageLoader, **loader_args):
+                 loader_class: Union[type, str] = PackageLoader, **loader_args) -> None:
         assert check_argument_types()
         if environment is None:
             environment = {}
@@ -34,12 +34,12 @@ class Jinja2Renderer(TemplateRenderer):
         self.environment = environment
 
         if self.environment.loader is None:
-            loader_class = resolve_reference(loader_class)
-            self.environment.loader = loader_class(**loader_args)
+            resolved_loader_class = resolve_reference(loader_class)
+            self.environment.loader = resolved_loader_class(**loader_args)
 
     def render(self, template: str, **vars) -> str:
-        template = self.environment.get_template(template)
-        return template.render(vars)
+        compiled_template = self.environment.get_template(template)
+        return compiled_template.render(vars)
 
     def render_string(self, source: str, **vars) -> str:
         template = self.environment.from_string(source)

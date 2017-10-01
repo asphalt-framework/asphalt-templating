@@ -20,11 +20,11 @@ class TemplateRenderer(metaclass=ABCMeta):
         """
 
     @abstractmethod
-    def render_string(self, template: str, **vars) -> str:
+    def render_string(self, source: str, **vars) -> str:
         """
         Render the template contained in the given string.
 
-        :param template: content of the template to render
+        :param source: content of the template to render
         :param vars: extra variables made available to the template
         :return: the rendered results
         """
@@ -43,7 +43,7 @@ class TemplateRendererProxy(TemplateRenderer):
 
     __slots__ = '_ctx', '_renderer'
 
-    def __init__(self, ctx: Context, renderer: TemplateRenderer):
+    def __init__(self, ctx: Context, renderer: TemplateRenderer) -> None:
         self._ctx = ctx
         self._renderer = renderer
 

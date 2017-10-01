@@ -21,18 +21,18 @@ class DjangoRenderer(TemplateRenderer):
     __slots__ = 'engine'
 
     def __init__(self, engine: Union[Engine, Dict[str, Any]] = None,
-                 package_paths: Iterable[str] = ()):
+                 package_paths: Iterable[str] = ()) -> None:
         assert check_argument_types()
-        self.engine = engine or {}
+        self.engine = engine or {}  # type: Engine
         if isinstance(self.engine, dict):
             self.engine.setdefault('dirs', []).extend(package_to_directory(pkg) for
                                                       pkg in package_paths)
             self.engine = Engine(**self.engine)
 
     def render(self, template: str, **vars) -> str:
-        template = self.engine.get_template(template)
+        compiled_template = self.engine.get_template(template)
         context = Context(vars)
-        return template.render(context)
+        return compiled_template.render(context)
 
     def render_string(self, source: str, **vars) -> str:
         template = self.engine.from_string(source)

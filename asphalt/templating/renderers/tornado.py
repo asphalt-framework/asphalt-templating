@@ -18,7 +18,7 @@ class TornadoRenderer(TemplateRenderer):
 
     __slots__ = 'loader'
 
-    def __init__(self, package_path: str = None, **loader_args):
+    def __init__(self, package_path: str = None, **loader_args) -> None:
         assert check_argument_types()
         if package_path:
             loader_args.setdefault('root_directory', package_to_directory(package_path))
@@ -26,8 +26,8 @@ class TornadoRenderer(TemplateRenderer):
         self.loader = Loader(**loader_args)
 
     def render(self, template: str, **vars) -> str:
-        template = self.loader.load(template)
-        return template.generate(**vars).decode('utf-8')
+        compiled_template = self.loader.load(template)
+        return compiled_template.generate(**vars).decode('utf-8')
 
     def render_string(self, source: str, **vars) -> str:
         template = Template(source)
