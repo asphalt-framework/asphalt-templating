@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import logging
 from functools import partial
-from typing import Any, Dict, List, Tuple  # noqa: F401
+from typing import Any, Dict, List, Tuple
 
 from asphalt.core import Component, Context, PluginContainer, merge_config, qualified_name
 from typeguard import check_argument_types
@@ -42,7 +44,7 @@ class TemplatingComponent(Component):
             default_renderer_args.setdefault('context_attr', default_renderer_args.get('backend'))
             renderers = {'default': default_renderer_args}
 
-        self.renderers = []  # type: List[Tuple]
+        self.renderers: List[Tuple] = []
         for resource_name, config in renderers.items():
             config = merge_config(default_renderer_args, config or {})
             type_ = config.pop('backend', resource_name)

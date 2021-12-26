@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from importlib import import_module
 from pathlib import Path
 
@@ -27,6 +29,6 @@ def package_to_directory(package_path: str) -> str:
         if path.is_dir():
             return str(path)
         else:
-            raise LookupError('{} is not a directory'.format(path))
+            raise LookupError(f'{path} is not a directory')
     else:
-        raise LookupError('{} does not exist'.format(path))
+        raise LookupError(f'{path} does not exist')

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from tornado.template import Loader, Template
 from typeguard import check_argument_types
 
