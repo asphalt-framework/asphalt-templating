@@ -1,14 +1,14 @@
-import pytest
 from pathlib import Path
+
+import pytest
 
 from asphalt.templating.renderers.django import DjangoRenderer
 from asphalt.templating.renderers.jinja2 import Jinja2Renderer
 from asphalt.templating.renderers.mako import MakoRenderer
-from asphalt.templating.renderers.tonnikala import TonnikalaRenderer
 from asphalt.templating.renderers.tornado import TornadoRenderer
 
 
-@pytest.fixture(params=['django', 'jinja2', 'mako', 'tonnikala', 'tornado'])
+@pytest.fixture(params=['django', 'jinja2', 'mako', 'tornado'])
 def renderer_type(request):
     return request.param
 
@@ -19,7 +19,6 @@ def template_name(renderer_type):
         'django': 'django.html',
         'jinja2': 'jinja2.html',
         'mako': 'mako.mako',
-        'tonnikala': 'tonnikala.tk',
         'tornado': 'tornado.html',
     }[renderer_type]
 
@@ -32,8 +31,6 @@ def renderer(renderer_type):
         return MakoRenderer(package_paths=['tests/templates'])
     elif renderer_type == 'jinja2':
         return Jinja2Renderer(package_name='tests')
-    elif renderer_type == 'tonnikala':
-        return TonnikalaRenderer(package_paths=['tests/templates'])
     elif renderer_type == 'tornado':
         return TornadoRenderer(package_path='tests/templates')
 

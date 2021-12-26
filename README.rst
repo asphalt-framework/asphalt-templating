@@ -11,7 +11,6 @@ templating renderers:
 * Django_
 * Jinja2_
 * Mako_
-* Tonnikala_
 * Tornado_
 
 Additional backends may be provided through third party plugins.
@@ -19,7 +18,6 @@ Additional backends may be provided through third party plugins.
 .. _Django: https://docs.djangoproject.com/en/stable/topics/templates/
 .. _Jinja2: http://jinja.pocoo.org/
 .. _Mako: http://www.makotemplates.org/
-.. _Tonnikala: https://github.com/ztane/Tonnikala
 .. _Tornado: http://www.tornadoweb.org/en/stable/template.html
 
 Project links
