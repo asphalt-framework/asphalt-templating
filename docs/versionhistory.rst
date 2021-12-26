@@ -3,12 +3,11 @@ Version history
 
 This library adheres to `Semantic Versioning 2.0 <http://semver.org/>`_.
 
-**UNRELEASED**
+**3.0.0** (2021-12-27)
 
 - **BACKWARD INCOMPATIBLE** Dropped Tonnikala support
 - Added support for Python 3.10
 - Dropped support for Python 3.5 and 3.6
-
 
 **2.0.1** (2017-06-04)
 
