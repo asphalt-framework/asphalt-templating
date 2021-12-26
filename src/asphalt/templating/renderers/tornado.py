@@ -1,5 +1,4 @@
 from tornado.template import Loader, Template
-
 from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer

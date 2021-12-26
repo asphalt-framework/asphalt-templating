@@ -1,4 +1,4 @@
-from typing import Dict, Any, Union
+from typing import Any, Dict, Union
 
 from asphalt.core import resolve_reference
 from jinja2.environment import Environment

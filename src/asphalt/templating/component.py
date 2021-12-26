@@ -1,6 +1,6 @@
 import logging
 from functools import partial
-from typing import Dict, Any, List, Tuple  # noqa: F401
+from typing import Any, Dict, List, Tuple  # noqa: F401
 
 from asphalt.core import Component, Context, PluginContainer, merge_config, qualified_name
 from typeguard import check_argument_types

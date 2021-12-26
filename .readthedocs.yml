@@ -1,11 +1,14 @@
-type: sphinx
+version: 2
+formats: [htmlzip, pdf]
 python:
-  version: "3.5"
-  pip_install: true
-  extra_requirements:
-    - doc
-    - django
-    - jinja2
-    - mako
-    - tonnikala
-    - tornado
+   version: "3.7"
+   install:
+      - method: pip
+        path: .
+        extra_requirements:
+          - doc
+          - django
+          - jinja2
+          - mako
+          - tonnikala
+          - tornado

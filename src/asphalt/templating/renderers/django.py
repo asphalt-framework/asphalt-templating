@@ -1,4 +1,4 @@
-from typing import Dict, Any, Union, Iterable
+from typing import Any, Dict, Iterable, Union
 
 from django.template import Engine
 from django.template.context import Context
