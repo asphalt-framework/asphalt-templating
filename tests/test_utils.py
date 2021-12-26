@@ -1,5 +1,6 @@
-import pytest
 from pathlib import Path
+
+import pytest
 
 import asphalt.templating
 from asphalt.templating.utils import package_to_directory

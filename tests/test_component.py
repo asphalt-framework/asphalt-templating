@@ -1,5 +1,5 @@
-from asphalt.core.context import Context
 import pytest
+from asphalt.core.context import Context
 
 from asphalt.templating.api import TemplateRendererProxy
 from asphalt.templating.component import TemplatingComponent
