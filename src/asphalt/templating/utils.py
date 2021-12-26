@@ -18,8 +18,11 @@ def package_to_directory(package_path: str) -> str:
     else:
         pkgname, subpath = package_path, ''
 
-    module = import_module(pkgname)
-    path = Path(module.__spec__.origin).parent / subpath
+    module_spec = import_module(pkgname).__spec__
+    if module_spec is None or module_spec.origin is None:
+        raise LookupError(f'{pkgname} does not have an origin path')
+
+    path = Path(module_spec.origin).parent / subpath
     if path.exists():
         if path.is_dir():
             return str(path)
