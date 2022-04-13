@@ -17,19 +17,19 @@ class TornadoRenderer(TemplateRenderer):
     :param loader_args: extra arguments to pass to :class:`~tornado.template.Loader`
     """
 
-    __slots__ = 'loader'
+    __slots__ = "loader"
 
     def __init__(self, package_path: str = None, **loader_args) -> None:
         assert check_argument_types()
         if package_path:
-            loader_args.setdefault('root_directory', package_to_directory(package_path))
+            loader_args.setdefault("root_directory", package_to_directory(package_path))
 
         self.loader = Loader(**loader_args)
 
     def render(self, template: str, **vars) -> str:
         compiled_template = self.loader.load(template)
-        return compiled_template.generate(**vars).decode('utf-8')
+        return compiled_template.generate(**vars).decode("utf-8")
 
     def render_string(self, source: str, **vars) -> str:
         template = Template(source)
-        return template.generate(**vars).decode('utf-8')
+        return template.generate(**vars).decode("utf-8")

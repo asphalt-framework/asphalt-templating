@@ -20,15 +20,19 @@ class DjangoRenderer(TemplateRenderer):
         interpreted by :func:`~asphalt.templating.util.package_to_directory`.
     """
 
-    __slots__ = 'engine'
+    __slots__ = "engine"
 
-    def __init__(self, engine: Union[Engine, Dict[str, Any]] = None,
-                 package_paths: Iterable[str] = ()) -> None:
+    def __init__(
+        self,
+        engine: Union[Engine, Dict[str, Any]] = None,
+        package_paths: Iterable[str] = (),
+    ) -> None:
         assert check_argument_types()
         self.engine = engine or {}  # type: Engine
         if isinstance(self.engine, dict):
-            self.engine.setdefault('dirs', []).extend(package_to_directory(pkg) for
-                                                      pkg in package_paths)
+            self.engine.setdefault("dirs", []).extend(
+                package_to_directory(pkg) for pkg in package_paths
+            )
             self.engine = Engine(**self.engine)
 
     def render(self, template: str, **vars) -> str:

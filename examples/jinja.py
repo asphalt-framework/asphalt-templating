@@ -18,12 +18,17 @@ from jinja2 import FileSystemLoader
 class ApplicationComponent(CLIApplicationComponent):
     async def start(self, ctx: Context):
         this_directory = str(Path(__file__).parent)
-        self.add_component('templating', backend='jinja2', loader_class=FileSystemLoader,
-                           searchpath=this_directory)
+        self.add_component(
+            "templating",
+            backend="jinja2",
+            loader_class=FileSystemLoader,
+            searchpath=this_directory,
+        )
         await super().start(ctx)
 
     async def run(self, ctx: Context):
-        rendered = ctx.jinja2.render('demo.jinja2', uuid=uuid1())
+        rendered = ctx.jinja2.render("demo.jinja2", uuid=uuid1())
         print(rendered)
+
 
 run_application(ApplicationComponent())

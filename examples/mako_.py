@@ -17,11 +17,12 @@ from asphalt.core import CLIApplicationComponent, Context, run_application
 class ApplicationComponent(CLIApplicationComponent):
     async def start(self, ctx: Context):
         this_directory = str(Path(__file__).parent)
-        self.add_component('templating', backend='mako', directories=[this_directory])
+        self.add_component("templating", backend="mako", directories=[this_directory])
         await super().start(ctx)
 
     async def run(self, ctx: Context):
-        rendered = ctx.mako.render('demo.mako', now=datetime.now())
+        rendered = ctx.mako.render("demo.mako", now=datetime.now())
         print(rendered)
+
 
 run_application(ApplicationComponent())

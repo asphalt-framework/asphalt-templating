@@ -15,20 +15,20 @@ def package_to_directory(package_path: str) -> str:
     :raises LookupError: if the directory does not exist
 
     """
-    if '/' in package_path:
-        pkgname, subpath = package_path.split('/', 1)
+    if "/" in package_path:
+        pkgname, subpath = package_path.split("/", 1)
     else:
-        pkgname, subpath = package_path, ''
+        pkgname, subpath = package_path, ""
 
     module_spec = import_module(pkgname).__spec__
     if module_spec is None or module_spec.origin is None:
-        raise LookupError(f'{pkgname} does not have an origin path')
+        raise LookupError(f"{pkgname} does not have an origin path")
 
     path = Path(module_spec.origin).parent / subpath
     if path.exists():
         if path.is_dir():
             return str(path)
         else:
-            raise LookupError(f'{path} is not a directory')
+            raise LookupError(f"{path} is not a directory")
     else:
-        raise LookupError(f'{path} does not exist')
+        raise LookupError(f"{path} does not exist")

@@ -24,12 +24,12 @@ class MakoRenderer(TemplateRenderer):
     :param loader_args: extra arguments to pass to :class:`~mako.lookup.TemplateLookup`
     """
 
-    __slots__ = 'lookup'
+    __slots__ = "lookup"
 
     def __init__(self, package_paths: Iterable[str] = (), **lookup_options) -> None:
-        directories = lookup_options.setdefault('directories', [])
+        directories = lookup_options.setdefault("directories", [])
         directories.extend(package_to_directory(pkg_path) for pkg_path in package_paths)
-        lookup_options.setdefault('filesystem_checks', __debug__)
+        lookup_options.setdefault("filesystem_checks", __debug__)
         self.lookup = TemplateLookup(**lookup_options)
 
     def render(self, template: str, **vars) -> str:

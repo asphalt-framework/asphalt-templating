@@ -24,10 +24,14 @@ class Jinja2Renderer(TemplateRenderer):
     :param loader_args: extra arguments to pass to the loader class
     """
 
-    __slots__ = 'environment'
+    __slots__ = "environment"
 
-    def __init__(self, environment: Union[Environment, Dict[str, Any]] = None,
-                 loader_class: Union[type, str] = PackageLoader, **loader_args) -> None:
+    def __init__(
+        self,
+        environment: Union[Environment, Dict[str, Any]] = None,
+        loader_class: Union[type, str] = PackageLoader,
+        **loader_args,
+    ) -> None:
         assert check_argument_types()
         if environment is None:
             environment = {}

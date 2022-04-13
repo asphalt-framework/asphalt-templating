@@ -4,12 +4,18 @@ import logging
 from functools import partial
 from typing import Any, Dict, List, Tuple
 
-from asphalt.core import Component, Context, PluginContainer, merge_config, qualified_name
+from asphalt.core import (
+    Component,
+    Context,
+    PluginContainer,
+    merge_config,
+    qualified_name,
+)
 from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer, TemplateRendererProxy
 
-template_renderers = PluginContainer('asphalt.templating.renderers', TemplateRenderer)
+template_renderers = PluginContainer("asphalt.templating.renderers", TemplateRenderer)
 logger = logging.getLogger(__name__)
 
 
@@ -37,18 +43,21 @@ class TemplatingComponent(Component):
     :param default_renderer_args: default values for constructor keyword arguments
     """
 
-    def __init__(self, renderers: Dict[str, Dict[str, Any]] = None,
-                 **default_renderer_args) -> None:
+    def __init__(
+        self, renderers: Dict[str, Dict[str, Any]] = None, **default_renderer_args
+    ) -> None:
         assert check_argument_types()
         if not renderers:
-            default_renderer_args.setdefault('context_attr', default_renderer_args.get('backend'))
-            renderers = {'default': default_renderer_args}
+            default_renderer_args.setdefault(
+                "context_attr", default_renderer_args.get("backend")
+            )
+            renderers = {"default": default_renderer_args}
 
         self.renderers: List[Tuple] = []
         for resource_name, config in renderers.items():
             config = merge_config(default_renderer_args, config or {})
-            type_ = config.pop('backend', resource_name)
-            context_attr = config.pop('context_attr', resource_name)
+            type_ = config.pop("backend", resource_name)
+            context_attr = config.pop("context_attr", resource_name)
             renderer = template_renderers.create_object(type_, **config)
             self.renderers.append((resource_name, context_attr, renderer))
 
@@ -57,5 +66,9 @@ class TemplatingComponent(Component):
             proxymaker = partial(TemplateRendererProxy, renderer=renderer)
             types = [TemplateRenderer, type(renderer)]
             ctx.add_resource_factory(proxymaker, types, resource_name, context_attr)
-            logger.info('Configured template renderer (%s / ctx.%s; class=%s)', resource_name,
-                        context_attr, qualified_name(renderer))
+            logger.info(
+                "Configured template renderer (%s / ctx.%s; class=%s)",
+                resource_name,
+                context_attr,
+                qualified_name(renderer),
+            )

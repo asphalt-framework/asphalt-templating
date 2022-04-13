@@ -43,7 +43,7 @@ class TemplateRendererProxy(TemplateRenderer):
     this proxy object.
     """
 
-    __slots__ = '_ctx', '_renderer'
+    __slots__ = "_ctx", "_renderer"
 
     def __init__(self, ctx: Context, renderer: TemplateRenderer) -> None:
         self._ctx = ctx
@@ -63,7 +63,7 @@ class TemplateRendererProxy(TemplateRenderer):
         :return: the rendered results
 
         """
-        vars.setdefault('ctx', self._ctx)
+        vars.setdefault("ctx", self._ctx)
         return self._renderer.render(template, **vars)
 
     def render_string(self, source: str, **vars) -> str:
@@ -77,5 +77,5 @@ class TemplateRendererProxy(TemplateRenderer):
         :return: the rendered results
 
         """
-        vars.setdefault('ctx', self._ctx)
+        vars.setdefault("ctx", self._ctx)
         return self._renderer.render_string(source, **vars)
