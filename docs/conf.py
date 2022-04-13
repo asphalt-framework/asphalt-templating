@@ -33,10 +33,9 @@ html_static_path = ["_static"]
 htmlhelp_basename = project.replace("-", "") + "doc"
 
 intersphinx_mapping = {
-    "python": ("http://docs.python.org/3/", None),
-    "asphalt": ("http://asphalt.readthedocs.org/en/latest/", None),
-    "jinja2": ("http://jinja.pocoo.org/docs/dev/", None),
-    "mako": ("http://docs.makotemplates.org/en/latest/", None),
-    "tornado": ("http://www.tornadoweb.org/en/stable/", None),
-    "tonnikala": ("http://tonnikala.readthedocs.io/en/latest/", None),
+    "python": ("https://docs.python.org/3/", None),
+    "asphalt": ("https://asphalt.readthedocs.org/en/latest/", None),
+    "jinja2": ("https://jinja.pocoo.org/docs/dev/", None),
+    "mako": ("https://docs.makotemplates.org/en/latest/", None),
+    "tornado": ("https://www.tornadoweb.org/en/stable/", None),
 }
