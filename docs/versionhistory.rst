@@ -3,6 +3,10 @@ Version history
 
 This library adheres to `Semantic Versioning 2.0 <http://semver.org/>`_.
 
+**3.0.2** (2022-04-14)
+
+- Added missing ``py.typed`` marker
+
 **3.0.1** (2022-04-14)
 
 - Fixed overly restrictive dependency constraint on Asphalt core
