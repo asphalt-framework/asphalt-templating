@@ -21,8 +21,10 @@ class ApplicationComponent(CLIApplicationComponent):
         self.add_component(
             "templating",
             backend="jinja2",
-            loader_class=FileSystemLoader,
-            searchpath=this_directory,
+            options={
+                "loader_class": FileSystemLoader,
+                "searchpath": this_directory,
+            },
         )
         await super().start(ctx)
 

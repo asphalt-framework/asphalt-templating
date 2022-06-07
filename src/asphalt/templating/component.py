@@ -4,13 +4,7 @@ import logging
 from functools import partial
 from typing import Any
 
-from asphalt.core import (
-    Component,
-    Context,
-    PluginContainer,
-    merge_config,
-    qualified_name,
-)
+from asphalt.core import Component, Context, PluginContainer, qualified_name
 
 from asphalt.templating.api import TemplateRenderer, TemplateRendererProxy
 
@@ -20,53 +14,33 @@ logger = logging.getLogger(__name__)
 
 class TemplatingComponent(Component):
     """
-    Creates a :class:`~asphalt.templating.api.TemplateRenderer` resource factory.
+    Creates a template renderer resource factory.
 
-    Template renderers can be configured in two ways:
+    The template renderer resources will be available in the context as
+     :class:`~asphalt.templating.api.TemplateRenderer` resources.
 
-    #. a single renderer, with configuration supplied directly as keyword arguments to this
-        component's constructor (with the resource name being ``default`` and the context attribute
-        matching the backend name)
-    #. multiple renderers, by providing the ``renderers`` option where each key is the resource
-        name and each value is a dictionary containing that renderer's configuration (with the
-        context attribute matching the resource name by default)
-
-    Each renderer configuration has two special options that are not passed to the constructor of
-    the backend class:
-
-    * backend: entry point name of the renderer backend class (required)
-    * context_attr: name of the context attribute of the renderer resource factory
-
-    :param renderers: a dictionary of resource name ⭢ constructor arguments for the chosen
-        backend class
-    :param default_renderer_args: default values for constructor keyword arguments
+    :param backend: the name of the renderer backend
+    :param resource_name: the name of the renderer resource factory
+    :param options: a dictionary of keyword arguments passed to the renderer backend
+        class
     """
 
     def __init__(
-        self, renderers: dict[str, dict[str, Any]] = None, **default_renderer_args
-    ) -> None:
-        if not renderers:
-            default_renderer_args.setdefault(
-                "context_attr", default_renderer_args.get("backend")
-            )
-            renderers = {"default": default_renderer_args}
-
-        self.renderers: list[tuple] = []
-        for resource_name, config in renderers.items():
-            config = merge_config(default_renderer_args, config or {})
-            type_ = config.pop("backend", resource_name)
-            context_attr = config.pop("context_attr", resource_name)
-            renderer = template_renderers.create_object(type_, **config)
-            self.renderers.append((resource_name, context_attr, renderer))
+        self,
+        backend: str,
+        resource_name: str = "default",
+        options: dict[str, Any] | None = None,
+    ):
+        options = options or {}
+        self.resource_name = resource_name
+        self.renderer = template_renderers.create_object(backend, **options)
 
     async def start(self, ctx: Context):
-        for resource_name, context_attr, renderer in self.renderers:
-            proxymaker = partial(TemplateRendererProxy, renderer=renderer)
-            types = [TemplateRenderer, type(renderer)]
-            ctx.add_resource_factory(proxymaker, types, resource_name, context_attr)
-            logger.info(
-                "Configured template renderer (%s / ctx.%s; class=%s)",
-                resource_name,
-                context_attr,
-                qualified_name(renderer),
-            )
+        proxymaker = partial(TemplateRendererProxy, renderer=self.renderer)
+        types = [TemplateRenderer, type(self.renderer)]
+        ctx.add_resource_factory(proxymaker, types, self.resource_name)
+        logger.info(
+            "Configured template renderer (%s; class=%s)",
+            self.resource_name,
+            qualified_name(self.renderer),
+        )
