@@ -57,10 +57,10 @@ doc = [
 templating = "asphalt.templating.component:TemplatingComponent"
 
 [project.entry-points."asphalt.templating.renderers"]
-django = "asphalt.templating.renderers.django:DjangoRenderer [django]"
-jinja2 = "asphalt.templating.renderers.jinja2:Jinja2Renderer [jinja2]"
-mako = "asphalt.templating.renderers.mako:MakoRenderer [mako]"
-tornado = "asphalt.templating.renderers.tornado:TornadoRenderer [tornado]"
+django = "asphalt.templating.renderers.django:DjangoRenderer"
+jinja2 = "asphalt.templating.renderers.jinja2:Jinja2Renderer"
+mako = "asphalt.templating.renderers.mako:MakoRenderer"
+tornado = "asphalt.templating.renderers.tornado:TornadoRenderer"
 
 [tool.setuptools_scm]
 version_scheme = "post-release"
