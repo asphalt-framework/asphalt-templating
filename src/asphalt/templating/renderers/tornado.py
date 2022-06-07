@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from tornado.template import Loader, Template
-from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer
 from asphalt.templating.utils import package_to_directory
@@ -20,7 +19,6 @@ class TornadoRenderer(TemplateRenderer):
     __slots__ = "loader"
 
     def __init__(self, package_path: str = None, **loader_args) -> None:
-        assert check_argument_types()
         if package_path:
             loader_args.setdefault("root_directory", package_to_directory(package_path))
 

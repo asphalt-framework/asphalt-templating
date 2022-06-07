@@ -3,6 +3,10 @@ Version history
 
 This library adheres to `Semantic Versioning 2.0 <http://semver.org/>`_.
 
+**UNRELEASED**
+
+- Dropped explicit run-time type checking
+
 **3.0.2** (2022-04-14)
 
 - Added missing ``py.typed`` marker

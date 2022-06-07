@@ -11,7 +11,6 @@ from asphalt.core import (
     merge_config,
     qualified_name,
 )
-from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer, TemplateRendererProxy
 
@@ -21,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class TemplatingComponent(Component):
     """
-    Creates one or more :class:`~asphalt.templating.api.TemplateRenderer` resource factories.
+    Creates a :class:`~asphalt.templating.api.TemplateRenderer` resource factory.
 
     Template renderers can be configured in two ways:
 
@@ -46,7 +45,6 @@ class TemplatingComponent(Component):
     def __init__(
         self, renderers: Dict[str, Dict[str, Any]] = None, **default_renderer_args
     ) -> None:
-        assert check_argument_types()
         if not renderers:
             default_renderer_args.setdefault(
                 "context_attr", default_renderer_args.get("backend")

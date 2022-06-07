@@ -26,7 +26,6 @@ classifiers = [
 ]
 dependencies = [
     "asphalt ~= 4.6",
-    "typeguard ~= 2.0",
     "Django >= 1.9.0; extra == 'django' or extra == 'doc' or extra == 'test'",
     "Mako >= 1.0.1; extra == 'mako' or extra == 'doc' or extra == 'test'",
     "Jinja2 >= 2.7.3; extra == 'jinja2' or extra == 'doc' or extra == 'test'",

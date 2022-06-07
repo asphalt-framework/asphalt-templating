@@ -5,7 +5,6 @@ from typing import Any, Dict, Union
 from asphalt.core import resolve_reference
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
-from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer
 
@@ -32,7 +31,6 @@ class Jinja2Renderer(TemplateRenderer):
         loader_class: Union[type, str] = PackageLoader,
         **loader_args,
     ) -> None:
-        assert check_argument_types()
         if environment is None:
             environment = {}
         if isinstance(environment, dict):

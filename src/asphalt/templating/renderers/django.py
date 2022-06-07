@@ -4,7 +4,6 @@ from typing import Any, Dict, Iterable, Union
 
 from django.template import Engine
 from django.template.context import Context
-from typeguard import check_argument_types
 
 from asphalt.templating.api import TemplateRenderer
 from asphalt.templating.utils import package_to_directory
@@ -27,7 +26,6 @@ class DjangoRenderer(TemplateRenderer):
         engine: Union[Engine, Dict[str, Any]] = None,
         package_paths: Iterable[str] = (),
     ) -> None:
-        assert check_argument_types()
         self.engine = engine or {}  # type: Engine
         if isinstance(self.engine, dict):
             self.engine.setdefault("dirs", []).extend(
