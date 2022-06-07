@@ -21,7 +21,7 @@ v = parse(version(project))
 version = v.base_version
 release = v.public
 
-language = None
+language = "en"
 
 exclude_patterns = ["_build"]
 pygments_style = "sphinx"
@@ -35,7 +35,7 @@ htmlhelp_basename = project.replace("-", "") + "doc"
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
     "asphalt": ("https://asphalt.readthedocs.org/en/latest/", None),
-    "jinja2": ("https://jinja.pocoo.org/docs/dev/", None),
+    "jinja2": ("https://jinja.octoprint.org/", None),
     "mako": ("https://docs.makotemplates.org/en/latest/", None),
     "tornado": ("https://www.tornadoweb.org/en/stable/", None),
 }

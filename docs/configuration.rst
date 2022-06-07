@@ -10,7 +10,6 @@ box:
 * :mod:`~asphalt.templating.renderers.django`
 * :mod:`~asphalt.templating.renderers.jinja2`
 * :mod:`~asphalt.templating.renderers.mako`
-* :mod:`~asphalt.templating.renderers.tonnikala`
 * :mod:`~asphalt.templating.renderers.tornado`
 
 Other backends may be provided by other components.
@@ -22,57 +21,58 @@ for the backend class::
     components:
       templating:
         backend: mako
-        package_paths:
-          - myapp.somepackage/templates
+        options:
+          package_paths:
+            - myapp.somepackage/templates
 
-This configuration publishes a :class:`asphalt.templating.api.TemplateRenderer` lazy resource
-named ``default`` using the Mako backend, accessible as ``ctx.mako``. The renderer will look for
-templates in the ``templates`` subdirectory of the ``myapp.somepackage`` package.
+This configuration publishes a :class:`asphalt.templating.api.TemplateRenderer` lazy
+resource named ``default`` using the Mako backend. The renderer will look for templates
+in the ``templates`` subdirectory of the ``myapp.somepackage`` package.
 
-The same can be done directly in Python code as follows::
+The same can be done directly in Python code as follows:
+
+.. code-block:: python
 
     class ApplicationComponent(ContainerComponent):
-        async def start(ctx: Context):
-            self.add_component('templating', backend='mako',
-                               package_paths=['myapp.somepackage/templates'])
+        async def start(ctx: Context) -> None:
+            self.add_component(
+                "templating",
+                backend="mako",
+                options={"package_paths": ['myapp.somepackage/templates']}
+            )
             await super().start()
 
 
 Multiple renderers
 ------------------
 
-If you need to configure multiple renderers, you can do so by using the ``renderers``
-configuration option::
+If you need to configure multiple renderers, you will need to use multiple instances
+of the templating component::
 
     components:
       templating:
-        renderers:
-          django:
-            package_paths:
-              - myapp.somepackage/templates/django
-          jinja2:
-            package_name: myapp.somepackage
-            package_path: templates/jinja2
-          mako:
-            package_paths:
-              - myapp.somepackage/templates/mako
-          tonnikala:
-            package_paths:
-              - myapp.somepackage/templates/tonnikala
-          tornado:
-            package_path: myapp.somepackage/templates/tornado
-          foobar:
-            backend: jinja2
-            context_attr: foo
-            package_name: myapp.somepackage
-            package_path: templates/jinja2
+        backend: django
+        options:
+          package_paths:
+            - myapp.somepackage/templates/django
+      templating2:
+        type: templating
+        backend: jinja2
+        resource_name: jinja2
+        options:
+          package_name: myapp.somepackage
+          package_path: templates/jinja2
+      templating3:
+        type: templating
+        backend: mako
+        resource_name: mako
+        options:
+          package_paths:
+            - myapp.somepackage/templates/mako
 
-The above configuration creates 5 lazy resources of type
-:class:`asphalt.templating.api.TemplateRendererProxy`:
+The above configuration creates 3 lazy resources of type
+:class:`asphalt.templating.api.TemplateRenderer`:
 
-* ``django`` as ``ctx.django``
-* ``jinja2`` as ``ctx.jinja2``
-* ``mako`` as ``ctx.mako``
-* ``tonnikala`` as ``ctx.tonnikala``
-* ``tornado`` as ``ctx.tornado``
-* ``foobar`` as ``ctx.foo``
+* ``default`` (the Django renderer)
+* ``jinja2`` (the Jinja 2 renderer)
+* ``mako`` (the Mako renderer)
