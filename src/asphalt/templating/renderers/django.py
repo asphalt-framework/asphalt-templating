@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Iterable, Union
+from collections.abc import Iterable
+from typing import Any
 
 from django.template import Engine
 from django.template.context import Context
@@ -23,7 +24,7 @@ class DjangoRenderer(TemplateRenderer):
 
     def __init__(
         self,
-        engine: Union[Engine, Dict[str, Any]] = None,
+        engine: Engine | dict[str, Any] = None,
         package_paths: Iterable[str] = (),
     ) -> None:
         self.engine = engine or {}  # type: Engine

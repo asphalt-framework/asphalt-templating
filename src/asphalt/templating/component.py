@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from functools import partial
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from asphalt.core import (
     Component,
@@ -43,7 +43,7 @@ class TemplatingComponent(Component):
     """
 
     def __init__(
-        self, renderers: Dict[str, Dict[str, Any]] = None, **default_renderer_args
+        self, renderers: dict[str, dict[str, Any]] = None, **default_renderer_args
     ) -> None:
         if not renderers:
             default_renderer_args.setdefault(
@@ -51,7 +51,7 @@ class TemplatingComponent(Component):
             )
             renderers = {"default": default_renderer_args}
 
-        self.renderers: List[Tuple] = []
+        self.renderers: list[tuple] = []
         for resource_name, config in renderers.items():
             config = merge_config(default_renderer_args, config or {})
             type_ = config.pop("backend", resource_name)

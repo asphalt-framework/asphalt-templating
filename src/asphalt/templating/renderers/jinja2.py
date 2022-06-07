@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Union
+from typing import Any
 
 from asphalt.core import resolve_reference
 from jinja2.environment import Environment
@@ -27,8 +27,8 @@ class Jinja2Renderer(TemplateRenderer):
 
     def __init__(
         self,
-        environment: Union[Environment, Dict[str, Any]] = None,
-        loader_class: Union[type, str] = PackageLoader,
+        environment: Environment | dict[str, Any] = None,
+        loader_class: type | str = PackageLoader,
         **loader_args,
     ) -> None:
         if environment is None:
