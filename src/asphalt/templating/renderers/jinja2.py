@@ -13,13 +13,15 @@ class Jinja2Renderer(TemplateRenderer):
     """
     Renders Jinja2 templates.
 
-    A new template loader will be created if no environment is supplied or it does not already have
-    a loader in it.
+    A new template loader will be created if no environment is supplied, or it does not
+    already have a loader in it.
 
     .. seealso:: `Jinja2 API Docs <http://jinja.pocoo.org/docs/dev/api/#loaders>`_
 
-    :param environment: a Jinja2 environment object or keyword arguments for its constructor
-    :param loader_class: a Jinja2 template loader class or a ``module:varname`` reference to one
+    :param environment: a Jinja2 environment object or keyword arguments for its
+        constructor
+    :param loader_class: a Jinja2 template loader class or a ``module:varname``
+        reference to one
     :param loader_args: extra arguments to pass to the loader class
     """
 

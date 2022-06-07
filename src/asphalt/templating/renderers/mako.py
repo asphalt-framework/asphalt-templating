@@ -14,13 +14,15 @@ class MakoRenderer(TemplateRenderer):
     Renders Mako templates.
 
     .. note:: By default, the ``filesystem_checks`` argument of
-      :class:`~mako.lookup.TemplateLookup` is set  to the value of the ``__debug__`` variable.
-      This means that in production mode, it will not check for template changes. If a template is
-      edited in production mode, the application must be restarted for the changes to take effect.
+      :class:`~mako.lookup.TemplateLookup` is set  to the value of the ``__debug__``
+      variable. This means that in production mode, it will not check for template
+      changes. If a template is edited in production mode, the application must be
+      restarted for the changes to take effect.
 
-    :param package_paths: if given, looks up the directories containing the given package and fills
-        in the ``directories`` argument for :class:`~mako.lookup.TemplateLookup`. The value will be
-        interpreted by :func:`~asphalt.templating.util.package_to_directory`.
+    :param package_paths: if given, looks up the directories containing the given
+        package and fills in the ``directories`` argument for
+        :class:`~mako.lookup.TemplateLookup`. The value will be interpreted by
+        :func:`~asphalt.templating.util.package_to_directory`.
     :param loader_args: extra arguments to pass to :class:`~mako.lookup.TemplateLookup`
     """
 

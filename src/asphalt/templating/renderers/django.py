@@ -14,10 +14,12 @@ class DjangoRenderer(TemplateRenderer):
     """
     Renders Django templates.
 
-    :param engine: a Django template engine object or keyword arguments for its constructor
-    :param package_paths: if given, looks up the directories containing the given package and fills
-        in or extends the ``dirs`` argument for :class:`~django.template.Engine`. The value will be
-        interpreted by :func:`~asphalt.templating.util.package_to_directory`.
+    :param engine: a Django template engine object or keyword arguments for its
+        constructor
+    :param package_paths: if given, looks up the directories containing the given
+        package and fills in or extends the ``dirs`` argument for
+        :class:`~django.template.Engine`. The value will be interpreted by
+        :func:`~asphalt.templating.util.package_to_directory`.
     """
 
     __slots__ = "engine"

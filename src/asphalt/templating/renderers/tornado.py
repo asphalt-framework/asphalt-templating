@@ -10,9 +10,10 @@ class TornadoRenderer(TemplateRenderer):
     """
     Renders Tornado templates.
 
-    :param package_path: if given, looks up the directory containing the given package and fills in
-        the ``root_directory`` argument for :class:`~tornado.template.Loader`. The value will be
-        interpreted by :func:`~asphalt.templating.util.package_to_directory`.
+    :param package_path: if given, looks up the directory containing the given package
+        and fills in he ``root_directory`` argument for
+        :class:`~tornado.template.Loader`. The value will be interpreted by
+        :func:`~asphalt.templating.util.package_to_directory`.
     :param loader_args: extra arguments to pass to :class:`~tornado.template.Loader`
     """
 

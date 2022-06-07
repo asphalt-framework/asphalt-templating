@@ -15,8 +15,8 @@ class TemplateRenderer(metaclass=ABCMeta):
         """
         Render the named template.
 
-        :param template: name of the template file, relative to any of the configured template
-            directories
+        :param template: name of the template file, relative to any of the configured
+            template directories
         :param vars: extra context variables made available to templates
         :return: the rendered results
         """
@@ -36,11 +36,11 @@ class TemplateRendererProxy(TemplateRenderer):
     """
     Context-bound template renderer proxy.
 
-    Adds the bound context to the variables passed to :meth:`~TemplateRenderer.render` as ``ctx``,
-    unless a variable by that name was explicitly passed.
+    Adds the bound context to the variables passed to :meth:`~TemplateRenderer.render`
+    as ``ctx``, unless a variable by that name was explicitly passed.
 
-    Any variables and methods provided by the underlying renderer can be directly accessed through
-    this proxy object.
+    Any variables and methods provided by the underlying renderer can be directly
+    accessed through this proxy object.
     """
 
     __slots__ = "_ctx", "_renderer"

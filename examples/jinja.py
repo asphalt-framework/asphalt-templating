@@ -1,11 +1,11 @@
 """
 A simple example that renders a Jinja2 template and prints out the result.
 
-Notice that this example uses FileSystemLoader instead of the default PackageLoader because this
-script is not part of a package. In practical applications, however, it is recommended to store
-the templates in a directory within the application's package tree and use PackageLoader with the
-``package_name`` option so they can be accessed regardless of where the application has been
-installed.
+Notice that this example uses FileSystemLoader instead of the default PackageLoader
+because this script is not part of a package. In practical applications, however, it is
+recommended to store the templates in a directory within the application's package tree
+and use PackageLoader with the ``package_name`` option so they can be accessed
+regardless of where the application has been installed.
 """
 
 from pathlib import Path
