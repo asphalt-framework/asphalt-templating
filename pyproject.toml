@@ -1,7 +1,7 @@
 [build-system]
 requires = [
     "setuptools >= 61",
-    "setuptools_scm[toml] >= 6.4"
+    "setuptools_scm >= 6.4"
 ]
 build-backend = "setuptools.build_meta"
 
@@ -67,7 +67,6 @@ version_scheme = "post-release"
 local_scheme = "dirty-tag"
 
 [tool.isort]
-src_paths = ["src"]
 skip_gitignore = true
 profile = "black"
 
