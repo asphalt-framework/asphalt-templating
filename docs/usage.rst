@@ -19,3 +19,9 @@ To directly render a template string::
     @inject
     async def handler(*, renderer: TemplateRenderer = resource()):
         text = renderer.render_string('This is foo: {{ foo }}', somevariable='foo')
+
+Using the current context in the template
+-----------------------------------------
+
+If an Asphalt context is active while a template is being rendered, that context will
+be available to the template as the ``ctx`` variable.

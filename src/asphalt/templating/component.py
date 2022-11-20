@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 import logging
-from functools import partial
 from typing import Any
 
 from asphalt.core import Component, Context, PluginContainer, qualified_name
 
-from asphalt.templating.api import TemplateRenderer, TemplateRendererProxy
+from asphalt.templating.api import TemplateRenderer
 
 template_renderers = PluginContainer("asphalt.templating.renderers", TemplateRenderer)
 logger = logging.getLogger(__name__)
@@ -14,15 +13,17 @@ logger = logging.getLogger(__name__)
 
 class TemplatingComponent(Component):
     """
-    Creates a template renderer resource factory.
+    Creates a template renderer resource.
 
-    The template renderer resources will be available in the context as
-     :class:`~asphalt.templating.api.TemplateRenderer` resources.
+    The renderer resource will be available in the context as the following types:
+
+    * :class:`~asphalt.templating.api.TemplateRenderer`
+    * its actual type
 
     :param backend: the name of the renderer backend
-    :param resource_name: the name of the renderer resource factory
-    :param options: a dictionary of keyword arguments passed to the renderer backend
-        class
+    :param resource_name: the name of the renderer resource
+    :param options: a dictionary of keyword arguments passed to the template renderer
+        backend class
     """
 
     def __init__(
@@ -36,9 +37,8 @@ class TemplatingComponent(Component):
         self.renderer = template_renderers.create_object(backend, **options)
 
     async def start(self, ctx: Context):
-        proxymaker = partial(TemplateRendererProxy, renderer=self.renderer)
         types = [TemplateRenderer, type(self.renderer)]
-        ctx.add_resource_factory(proxymaker, types, self.resource_name)
+        ctx.add_resource(self.renderer, self.resource_name, types=types)
         logger.info(
             "Configured template renderer (%s; class=%s)",
             self.resource_name,

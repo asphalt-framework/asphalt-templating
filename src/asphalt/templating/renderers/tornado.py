@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from typing import Any
+
+from asphalt.core import NoCurrentContext, current_context
 from tornado.template import Loader, Template
 
 from asphalt.templating.api import TemplateRenderer
@@ -25,10 +28,20 @@ class TornadoRenderer(TemplateRenderer):
 
         self.loader = Loader(**loader_args)
 
-    def render(self, template: str, **vars) -> str:
-        compiled_template = self.loader.load(template)
-        return compiled_template.generate(**vars).decode("utf-8")
+    @staticmethod
+    def _render(template: Template, vars: dict[str, Any]) -> str:
+        if "ctx" not in vars:
+            try:
+                vars["ctx"] = current_context()
+            except NoCurrentContext:
+                pass
 
-    def render_string(self, source: str, **vars) -> str:
-        template = Template(source)
         return template.generate(**vars).decode("utf-8")
+
+    def render(self, template: str, **vars: Any) -> str:
+        compiled_template = self.loader.load(template)
+        return self._render(compiled_template, vars)
+
+    def render_string(self, source: str, **vars: Any) -> str:
+        template = Template(source)
+        return self._render(template, vars)

@@ -13,6 +13,8 @@ from pathlib import Path
 
 from asphalt.core import CLIApplicationComponent, Context, run_application
 
+from asphalt.templating.api import TemplateRenderer
+
 
 class ApplicationComponent(CLIApplicationComponent):
     async def start(self, ctx: Context):
@@ -23,7 +25,8 @@ class ApplicationComponent(CLIApplicationComponent):
         await super().start(ctx)
 
     async def run(self, ctx: Context):
-        rendered = ctx.mako.render("demo.mako", now=datetime.now())
+        renderer = ctx.require_resource(TemplateRenderer)
+        rendered = renderer.render("demo.mako", now=datetime.now())
         print(rendered)
 
 

@@ -3,7 +3,8 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any
 
-from django.template import Engine
+from asphalt.core import NoCurrentContext, current_context
+from django.template import Engine, Template
 from django.template.context import Context
 
 from asphalt.templating.api import TemplateRenderer
@@ -36,12 +37,21 @@ class DjangoRenderer(TemplateRenderer):
             )
             self.engine = Engine(**self.engine)
 
-    def render(self, template: str, **vars) -> str:
-        compiled_template = self.engine.get_template(template)
-        context = Context(vars)
-        return compiled_template.render(context)
+    @staticmethod
+    def _render(template: Template, vars: dict[str, Any]) -> str:
+        if "ctx" not in vars:
+            try:
+                vars["ctx"] = current_context()
+            except NoCurrentContext:
+                pass
 
-    def render_string(self, source: str, **vars) -> str:
-        template = self.engine.from_string(source)
         context = Context(vars)
         return template.render(context)
+
+    def render(self, template: str, **vars: Any) -> str:
+        compiled_template = self.engine.get_template(template)
+        return self._render(compiled_template, vars)
+
+    def render_string(self, source: str, **vars: Any) -> str:
+        template = self.engine.from_string(source)
+        return self._render(template, vars)

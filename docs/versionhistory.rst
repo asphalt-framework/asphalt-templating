@@ -10,6 +10,10 @@ This library adheres to `Semantic Versioning 2.0 <http://semver.org/>`_.
   (you will have to add two components to get two renderers)
 - **BACKWARD INCOMPATIBLE** Dropped the context attribute (use dependency injection
   instead)
+- **BACKWARD INCOMPATIBLE** Template renderers are now added to the context directly,
+  instead of being resource factories
+- **BACKWARD INCOMPATIBLE** The ``ctx`` variable available to template renderers now
+  corresponds to ``current_context()`` instead of the context they were created from
 - Dropped explicit run-time type checking
 
 **3.0.2** (2022-04-14)

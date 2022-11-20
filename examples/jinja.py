@@ -14,6 +14,8 @@ from uuid import uuid1
 from asphalt.core import CLIApplicationComponent, Context, run_application
 from jinja2 import FileSystemLoader
 
+from asphalt.templating.api import TemplateRenderer
+
 
 class ApplicationComponent(CLIApplicationComponent):
     async def start(self, ctx: Context):
@@ -29,7 +31,8 @@ class ApplicationComponent(CLIApplicationComponent):
         await super().start(ctx)
 
     async def run(self, ctx: Context):
-        rendered = ctx.jinja2.render("demo.jinja2", uuid=uuid1())
+        renderer = ctx.require_resource(TemplateRenderer)
+        rendered = renderer.render("demo.jinja2", uuid=uuid1())
         print(rendered)
 
 

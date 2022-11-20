@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from asphalt.core import resolve_reference
+from asphalt.core import NoCurrentContext, current_context, resolve_reference
+from jinja2 import Template
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
 
@@ -43,10 +44,20 @@ class Jinja2Renderer(TemplateRenderer):
             resolved_loader_class = resolve_reference(loader_class)
             self.environment.loader = resolved_loader_class(**loader_args)
 
-    def render(self, template: str, **vars) -> str:
+    @staticmethod
+    def _render(template: Template, vars: dict[str, Any]) -> str:
+        if "ctx" not in vars:
+            try:
+                vars["ctx"] = current_context()
+            except NoCurrentContext:
+                pass
+
+        return template.render(vars)
+
+    def render(self, template: str, **vars: Any) -> str:
         compiled_template = self.environment.get_template(template)
-        return compiled_template.render(vars)
+        return self._render(compiled_template, vars)
 
     def render_string(self, source: str, **vars) -> str:
         template = self.environment.from_string(source)
-        return template.render(vars)
+        return self._render(template, vars)

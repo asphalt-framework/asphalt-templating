@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from typing import Any
 
+from asphalt.core import NoCurrentContext, current_context
 from mako.lookup import TemplateLookup
 from mako.template import Template
 
@@ -34,10 +36,20 @@ class MakoRenderer(TemplateRenderer):
         lookup_options.setdefault("filesystem_checks", __debug__)
         self.lookup = TemplateLookup(**lookup_options)
 
-    def render(self, template: str, **vars) -> str:
-        compiled_template = self.lookup.get_template(template)
-        return compiled_template.render(**vars)
+    @staticmethod
+    def _render(template: Template, vars: dict[str, Any]) -> str:
+        if "ctx" not in vars:
+            try:
+                vars["ctx"] = current_context()
+            except NoCurrentContext:
+                pass
 
-    def render_string(self, source: str, **vars) -> str:
-        template = Template(source)
         return template.render(**vars)
+
+    def render(self, template: str, **vars: Any) -> str:
+        compiled_template = self.lookup.get_template(template)
+        return self._render(compiled_template, vars)
+
+    def render_string(self, source: str, **vars: Any) -> str:
+        template = Template(source)
+        return self._render(template, vars)

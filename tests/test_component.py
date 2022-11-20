@@ -1,8 +1,9 @@
 import pytest
 from asphalt.core.context import Context
 
-from asphalt.templating.api import TemplateRenderer, TemplateRendererProxy
+from asphalt.templating.api import TemplateRenderer
 from asphalt.templating.component import TemplatingComponent
+from asphalt.templating.renderers.jinja2 import Jinja2Renderer
 
 
 @pytest.mark.asyncio
@@ -14,21 +15,8 @@ async def test_single_renderer():
         )
         await component.start(ctx)
 
-        renderer = ctx.require_resource(TemplateRenderer)
-        assert isinstance(renderer, TemplateRendererProxy)
+        for cls in (TemplateRenderer, Jinja2Renderer):
+            renderer = ctx.require_resource(cls)
+            assert isinstance(renderer, Jinja2Renderer)
 
         assert type(renderer.environment).__name__ == "Environment"
-        assert (
-            renderer.render("jinja2_context.html", str=str)
-            == """\
-<div>
-    This is a sample
-    Test variable: åäö
-</div>"""
-        )
-        assert (
-            renderer.render_string(
-                "This is testvar: {{ ctx.require_resource(str) }}", str=str
-            )
-            == "This is testvar: åäö"
-        )

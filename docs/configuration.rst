@@ -2,21 +2,22 @@ Configuration
 =============
 
 .. highlight:: yaml
+.. py:currentmodule:: asphalt.templating
 
-To configure a template renderer for your application, you need to choose a backend and then
-specify any necessary configuration values for it. The following backends are provided out of the
-box:
+To configure a template renderer for your application, you need to choose a backend and
+then specify any necessary configuration values for it. The following backends are
+provided out of the box:
 
-* :mod:`~asphalt.templating.renderers.django`
-* :mod:`~asphalt.templating.renderers.jinja2`
-* :mod:`~asphalt.templating.renderers.mako`
-* :mod:`~asphalt.templating.renderers.tornado`
+* :mod:`~.renderers.django`
+* :mod:`~.renderers.jinja2`
+* :mod:`~.renderers.mako`
+* :mod:`~.renderers.tornado`
 
 Other backends may be provided by other components.
 
-Once you've selected a backend, see its specific documentation to find out what configuration
-values you need to provide, if any. Configuration values are expressed as constructor arguments
-for the backend class::
+Once you've selected a backend, see its specific documentation to find out what
+configuration values you need to provide, if any. Configuration values are expressed as
+constructor arguments for the backend class::
 
     components:
       templating:
@@ -25,9 +26,9 @@ for the backend class::
           package_paths:
             - myapp.somepackage/templates
 
-This configuration publishes a :class:`asphalt.templating.api.TemplateRenderer` lazy
-resource named ``default`` using the Mako backend. The renderer will look for templates
-in the ``templates`` subdirectory of the ``myapp.somepackage`` package.
+This configuration publishes a :class:`asphalt.templating.api.TemplateRenderer` resource
+named ``default``. The renderer will look for templates in the ``templates``
+subdirectory of the ``myapp.somepackage`` package.
 
 The same can be done directly in Python code as follows:
 
@@ -70,9 +71,12 @@ of the templating component::
           package_paths:
             - myapp.somepackage/templates/mako
 
-The above configuration creates 3 lazy resources of type
-:class:`asphalt.templating.api.TemplateRenderer`:
+The above configuration creates 3 template renderer resources, available under 6
+different combinations:
 
-* ``default`` (the Django renderer)
-* ``jinja2`` (the Jinja 2 renderer)
-* ``mako`` (the Mako renderer)
+* :class:`~.api.TemplateRenderer` ``default`` (the Django renderer)
+* :class:`~.renderers.django.DjangoRenderer` ``default`` (the Django renderer)
+* :class:`~.api.TemplateRenderer` ``jinja2`` (the Jinja2 renderer)
+* :class:`~.renderers.jinja2.Jinja2Renderer` ``jinja2`` (the Jinja 2 renderer)
+* :class:`~.api.TemplateRenderer` ``mako`` (the Mako renderer)
+* :class:`~.renderers.mako.MakoRenderer` ``mako`` (the Mako renderer)
