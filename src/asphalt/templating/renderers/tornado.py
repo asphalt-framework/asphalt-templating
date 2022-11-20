@@ -22,7 +22,7 @@ class TornadoRenderer(TemplateRenderer):
 
     __slots__ = "loader"
 
-    def __init__(self, package_path: str = None, **loader_args) -> None:
+    def __init__(self, package_path: str | None = None, **loader_args) -> None:
         if package_path:
             loader_args.setdefault("root_directory", package_to_directory(package_path))
 
