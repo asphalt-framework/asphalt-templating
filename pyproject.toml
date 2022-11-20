@@ -24,12 +24,9 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]
+requires-python = ">= 3.7"
 dependencies = [
     "asphalt ~= 4.8",
-    "Django >= 1.9.0; extra == 'django' or extra == 'doc' or extra == 'test'",
-    "Mako >= 1.0.1; extra == 'mako' or extra == 'doc' or extra == 'test'",
-    "Jinja2 >= 2.7.3; extra == 'jinja2' or extra == 'doc' or extra == 'test'",
-    "tornado >= 4.3.0; extra == 'tornado' or extra == 'doc' or extra == 'test'"
 ]
 dynamic = ["version"]
 
@@ -37,16 +34,18 @@ dynamic = ["version"]
 Homepage = "https://github.com/asphalt-framework/asphalt-templating"
 
 [project.optional-dependencies]
-django = []
-mako = []
-jinja2 = []
-tornado = []
+django = ["Django >= 1.9.0"]
+mako = ["Mako >= 1.0.1"]
+jinja2 = ["Jinja2 >= 2.7.3"]
+tornado = ["tornado >= 4.3.0"]
 test = [
+    "asphalt-templating[django,mako,jinja2,tornado]",
     "pytest",
     "pytest-cov",
     "pytest-asyncio",
 ]
 doc = [
+    "asphalt-templating[django,mako,jinja2,tornado]",
     "Sphinx >= 1.5",
     "sphinx_rtd_theme",
     "sphinx-autodoc-typehints >= 1.0.5",
