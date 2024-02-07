@@ -4,6 +4,9 @@
 .. image:: https://coveralls.io/repos/github/asphalt-framework/asphalt-templating/badge.svg?branch=master
   :target: https://coveralls.io/github/asphalt-framework/asphalt-templating?branch=master
   :alt: Code Coverage
+.. image:: https://readthedocs.org/projects/asphalt-templating/badge/?version=latest
+  :target: https://asphalt-templating.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation
 
 This Asphalt framework component provides a standardized interface for a number of different
 templating renderers:
