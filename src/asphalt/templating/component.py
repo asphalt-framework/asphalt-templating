@@ -3,9 +3,14 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from asphalt.core import Component, Context, PluginContainer, qualified_name
+from asphalt.core import (
+    Component,
+    PluginContainer,
+    add_resource,
+    qualified_name,
+)
 
-from asphalt.templating.api import TemplateRenderer
+from asphalt.templating._api import TemplateRenderer
 
 template_renderers = PluginContainer("asphalt.templating.renderers", TemplateRenderer)
 logger = logging.getLogger(__name__)
@@ -36,9 +41,9 @@ class TemplatingComponent(Component):
         self.resource_name = resource_name
         self.renderer = template_renderers.create_object(backend, **options)
 
-    async def start(self, ctx: Context):
+    async def start(self) -> None:
         types = [TemplateRenderer, type(self.renderer)]
-        ctx.add_resource(self.renderer, self.resource_name, types=types)
+        await add_resource(self.renderer, self.resource_name, types=types)
         logger.info(
             "Configured template renderer (%s; class=%s)",
             self.resource_name,

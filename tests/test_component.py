@@ -1,22 +1,23 @@
 import pytest
-from asphalt.core.context import Context
+from asphalt.core import Context, add_resource, require_resource
 
-from asphalt.templating.api import TemplateRenderer
+from asphalt.templating._api import TemplateRenderer
 from asphalt.templating.component import TemplatingComponent
 from asphalt.templating.renderers.jinja2 import Jinja2Renderer
 
+pytestmark = pytest.mark.anyio
 
-@pytest.mark.asyncio
+
 async def test_single_renderer():
-    async with Context() as ctx:
-        ctx.add_resource("åäö")
+    async with Context():
+        await add_resource("åäö")
         component = TemplatingComponent(
             backend="jinja2", options={"package_name": "tests"}
         )
-        await component.start(ctx)
+        await component.start()
 
         for cls in (TemplateRenderer, Jinja2Renderer):
-            renderer = ctx.require_resource(cls)
+            renderer = require_resource(cls)
             assert isinstance(renderer, Jinja2Renderer)
 
         assert type(renderer.environment).__name__ == "Environment"

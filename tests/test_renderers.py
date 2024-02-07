@@ -2,14 +2,16 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-from asphalt.core import Context
+from asphalt.core import Context, add_resource
 from pytest import FixtureRequest
 
-from asphalt.templating.api import TemplateRenderer
+from asphalt.templating._api import TemplateRenderer
 from asphalt.templating.renderers.django import DjangoRenderer
 from asphalt.templating.renderers.jinja2 import Jinja2Renderer
 from asphalt.templating.renderers.mako import MakoRenderer
 from asphalt.templating.renderers.tornado import TornadoRenderer
+
+pytestmark = pytest.mark.anyio
 
 
 @pytest.fixture
@@ -72,10 +74,9 @@ class TestRenderer:
     ],
     indirect=["renderer"],
 )
-@pytest.mark.asyncio
 async def test_render(renderer: TemplateRenderer, template_name: str) -> None:
-    async with Context() as ctx:
-        ctx.add_resource("åäö")
+    async with Context():
+        await add_resource("åäö")
         result = renderer.render(template_name, str=str)
         assert (
             result.strip()

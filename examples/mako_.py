@@ -13,7 +13,7 @@ from pathlib import Path
 
 from asphalt.core import CLIApplicationComponent, Context, run_application
 
-from asphalt.templating.api import TemplateRenderer
+from asphalt.templating._api import TemplateRenderer
 
 
 class ApplicationComponent(CLIApplicationComponent):

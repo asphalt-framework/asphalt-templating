@@ -5,8 +5,8 @@ from typing import Any
 from asphalt.core import NoCurrentContext, current_context
 from tornado.template import Loader, Template
 
-from asphalt.templating.api import TemplateRenderer
-from asphalt.templating.utils import package_to_directory
+from asphalt.templating._api import TemplateRenderer
+from asphalt.templating._utils import package_to_directory
 
 
 class TornadoRenderer(TemplateRenderer):

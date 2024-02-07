@@ -14,7 +14,7 @@ from uuid import uuid1
 from asphalt.core import CLIApplicationComponent, Context, run_application
 from jinja2 import FileSystemLoader
 
-from asphalt.templating.api import TemplateRenderer
+from asphalt.templating._api import TemplateRenderer
 
 
 class ApplicationComponent(CLIApplicationComponent):

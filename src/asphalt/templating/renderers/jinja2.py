@@ -7,7 +7,7 @@ from jinja2 import Template
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
 
-from asphalt.templating.api import TemplateRenderer
+from asphalt.templating._api import TemplateRenderer
 
 
 class Jinja2Renderer(TemplateRenderer):

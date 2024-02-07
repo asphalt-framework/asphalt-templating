@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 import asphalt.templating
-from asphalt.templating.utils import package_to_directory
+from asphalt.templating._utils import package_to_directory
 
 BASEDIR = Path(asphalt.templating.__file__).parent
 
