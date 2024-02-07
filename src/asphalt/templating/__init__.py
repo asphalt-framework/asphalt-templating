@@ -1,6 +1,7 @@
 from typing import Any
 
 from ._api import TemplateRenderer as TemplateRenderer
+from ._component import TemplatingComponent as TemplatingComponent
 from ._utils import package_to_directory as package_to_directory
 
 # Re-export imports, so they look like they live directly in this package

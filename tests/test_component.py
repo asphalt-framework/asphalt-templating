@@ -1,8 +1,7 @@
 import pytest
 from asphalt.core import Context, add_resource, require_resource
 
-from asphalt.templating._api import TemplateRenderer
-from asphalt.templating.component import TemplatingComponent
+from asphalt.templating import TemplateRenderer, TemplatingComponent
 from asphalt.templating.renderers.jinja2 import Jinja2Renderer
 
 pytestmark = pytest.mark.anyio

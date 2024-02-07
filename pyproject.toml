@@ -52,7 +52,7 @@ doc = [
 ]
 
 [project.entry-points."asphalt.components"]
-templating = "asphalt.templating.component:TemplatingComponent"
+templating = "asphalt.templating:TemplatingComponent"
 
 [project.entry-points."asphalt.templating.renderers"]
 django = "asphalt.templating.renderers.django:DjangoRenderer"

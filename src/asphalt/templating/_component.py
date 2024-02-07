@@ -10,7 +10,7 @@ from asphalt.core import (
     qualified_name,
 )
 
-from asphalt.templating._api import TemplateRenderer
+from ._api import TemplateRenderer
 
 template_renderers = PluginContainer("asphalt.templating.renderers", TemplateRenderer)
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ class TemplatingComponent(Component):
 
     The renderer resource will be available in the context as the following types:
 
-    * :class:`~asphalt.templating.api.TemplateRenderer`
+    * :class:`~asphalt.templating.TemplateRenderer`
     * its actual type
 
     :param backend: the name of the renderer backend
