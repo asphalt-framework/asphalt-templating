@@ -76,7 +76,7 @@ select = [
     "UP",           # pyupgrade
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["asphalt.templating"]
 
 [tool.pytest.ini_options]
