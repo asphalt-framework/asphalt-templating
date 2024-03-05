@@ -8,5 +8,5 @@ from ._utils import package_to_directory as package_to_directory
 key: str
 value: Any
 for key, value in list(locals().items()):
-    if getattr(value, "__module__", "").startswith("asphalt.templating."):
+    if getattr(value, "__module__", "").startswith(f"{__name__}."):
         value.__module__ = __name__

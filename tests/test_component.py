@@ -9,7 +9,7 @@ pytestmark = pytest.mark.anyio
 
 async def test_single_renderer():
     async with Context():
-        await add_resource("åäö")
+        add_resource("åäö")
         component = TemplatingComponent(
             backend="jinja2", options={"package_name": "tests"}
         )

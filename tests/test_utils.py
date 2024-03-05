@@ -22,10 +22,10 @@ def test_package_to_directory(package_path, expected):
 @pytest.mark.parametrize(
     "package_path, errormsg",
     [
-        ("asphalt.templating/foobar", "{} does not exist".format(BASEDIR / "foobar")),
+        ("asphalt.templating/foobar", f"{BASEDIR / 'foobar'} does not exist"),
         (
-            "asphalt.templating/api.py",
-            "{} is not a directory".format(BASEDIR / "api.py"),
+            "asphalt.templating/__init__.py",
+            f"{BASEDIR / '__init__.py'} is not a directory",
         ),
     ],
 )

@@ -76,7 +76,7 @@ class TestRenderer:
 )
 async def test_render(renderer: TemplateRenderer, template_name: str) -> None:
     async with Context():
-        await add_resource("åäö")
+        add_resource("åäö")
         result = renderer.render(template_name, str=str)
         assert (
             result.strip()

@@ -43,7 +43,7 @@ class TemplatingComponent(Component):
 
     async def start(self) -> None:
         types = [TemplateRenderer, type(self.renderer)]
-        await add_resource(self.renderer, self.resource_name, types=types)
+        add_resource(self.renderer, self.resource_name, types=types)
         logger.info(
             "Configured template renderer (%s; class=%s)",
             self.resource_name,

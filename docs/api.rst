@@ -6,8 +6,8 @@ Component
 
 .. autoclass:: asphalt.templating.TemplatingComponent
 
-Template renderer API
----------------------
+Interfaces
+----------
 
 .. autoclass:: asphalt.templating.TemplateRenderer
 
