@@ -11,14 +11,18 @@ regardless of where the application has been installed.
 from pathlib import Path
 from uuid import uuid1
 
-from asphalt.core import CLIApplicationComponent, Context, run_application
+from asphalt.core import (
+    CLIApplicationComponent,
+    get_resource_nowait,
+    run_application,
+)
 from jinja2 import FileSystemLoader
 
-from asphalt.templating._api import TemplateRenderer
+from asphalt.templating import TemplateRenderer
 
 
 class ApplicationComponent(CLIApplicationComponent):
-    async def start(self, ctx: Context):
+    async def start(self) -> None:
         this_directory = str(Path(__file__).parent)
         self.add_component(
             "templating",
@@ -28,12 +32,11 @@ class ApplicationComponent(CLIApplicationComponent):
                 "searchpath": this_directory,
             },
         )
-        await super().start(ctx)
 
-    async def run(self, ctx: Context):
-        renderer = ctx.require_resource(TemplateRenderer)
+    async def run(self) -> None:
+        renderer = get_resource_nowait(TemplateRenderer)  # type: ignore[type-abstract]
         rendered = renderer.render("demo.jinja2", uuid=uuid1())
         print(rendered)
 
 
-run_application(ApplicationComponent())
+run_application(ApplicationComponent)

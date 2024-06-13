@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from asphalt.core import Context, add_resource, get_resource_nowait
 
@@ -7,7 +9,7 @@ from asphalt.templating.renderers.jinja2 import Jinja2Renderer
 pytestmark = pytest.mark.anyio
 
 
-async def test_single_renderer():
+async def test_single_renderer() -> None:
     async with Context():
         add_resource("åäö")
         component = TemplatingComponent(
@@ -15,8 +17,10 @@ async def test_single_renderer():
         )
         await component.start()
 
-        for cls in (TemplateRenderer, Jinja2Renderer):
-            renderer = get_resource_nowait(cls)
-            assert isinstance(renderer, Jinja2Renderer)
+        renderer = get_resource_nowait(TemplateRenderer)  # type: ignore[type-abstract]
+        assert isinstance(renderer, Jinja2Renderer)
+
+        renderer = get_resource_nowait(Jinja2Renderer)
+        assert isinstance(renderer, Jinja2Renderer)
 
         assert type(renderer.environment).__name__ == "Environment"

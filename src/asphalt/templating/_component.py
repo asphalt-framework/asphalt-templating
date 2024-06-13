@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from dataclasses import InitVar, dataclass, field
 from typing import Any
 
 from asphalt.core import (
@@ -16,6 +17,7 @@ template_renderers = PluginContainer("asphalt.templating.renderers", TemplateRen
 logger = logging.getLogger(__name__)
 
 
+@dataclass
 class TemplatingComponent(Component):
     """
     Creates a template renderer resource.
@@ -31,18 +33,18 @@ class TemplatingComponent(Component):
         backend class
     """
 
-    def __init__(
-        self,
-        backend: str,
-        resource_name: str = "default",
-        options: dict[str, Any] | None = None,
-    ):
-        options = options or {}
-        self.resource_name = resource_name
-        self.renderer = template_renderers.create_object(backend, **options)
+    backend: InitVar[str]
+    options: InitVar[dict[str, Any] | None]
+    resource_name: str = "default"
+    renderer: TemplateRenderer = field(init=False)
+
+    def __post_init__(
+        self, backend: str, options: dict[str, Any] | None = None
+    ) -> None:
+        self.renderer = template_renderers.create_object(backend, **options or {})
 
     async def start(self) -> None:
-        types = [TemplateRenderer, type(self.renderer)]
+        types: list[type[TemplateRenderer]] = [TemplateRenderer, type(self.renderer)]  # type: ignore[type-abstract]
         add_resource(self.renderer, self.resource_name, types=types)
         logger.info(
             "Configured template renderer (%s; class=%s)",

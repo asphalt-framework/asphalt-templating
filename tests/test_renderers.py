@@ -23,7 +23,8 @@ def renderer(request: FixtureRequest) -> TemplateRenderer:
         return MakoRenderer(package_paths=["tests/templates"])
     elif renderer_type == "jinja2":
         return Jinja2Renderer(package_name="tests")
-    elif renderer_type == "tornado":
+    else:
+        assert renderer_type == "tornado"
         return TornadoRenderer(package_path="tests/templates")
 
 

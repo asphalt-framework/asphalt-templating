@@ -27,15 +27,20 @@ class DjangoRenderer(TemplateRenderer):
 
     def __init__(
         self,
-        engine: Engine | dict[str, Any] = None,
+        engine: Engine | dict[str, Any] | None = None,
         package_paths: Iterable[str] = (),
     ) -> None:
-        self.engine = engine or {}  # type: Engine
-        if isinstance(self.engine, dict):
-            self.engine.setdefault("dirs", []).extend(
+        if isinstance(engine, dict):
+            engine.setdefault("dirs", []).extend(
                 package_to_directory(pkg) for pkg in package_paths
             )
-            self.engine = Engine(**self.engine)
+            self.engine = Engine(**engine)
+        elif isinstance(engine, Engine):
+            self.engine = engine
+        else:
+            raise TypeError(
+                "engine must be either a dict or an instance of django.template.Engine"
+            )
 
     @staticmethod
     def _render(template: Template, vars: dict[str, Any]) -> str:

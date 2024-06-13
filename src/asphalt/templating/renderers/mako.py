@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import Any
+from typing import Any, cast
 
 from asphalt.core import NoCurrentContext, current_context
 from mako.lookup import TemplateLookup
@@ -30,7 +30,9 @@ class MakoRenderer(TemplateRenderer):
 
     __slots__ = "lookup"
 
-    def __init__(self, package_paths: Iterable[str] = (), **lookup_options) -> None:
+    def __init__(
+        self, package_paths: Iterable[str] = (), **lookup_options: Any
+    ) -> None:
         directories = lookup_options.setdefault("directories", [])
         directories.extend(package_to_directory(pkg_path) for pkg_path in package_paths)
         lookup_options.setdefault("filesystem_checks", __debug__)
@@ -44,7 +46,7 @@ class MakoRenderer(TemplateRenderer):
             except NoCurrentContext:
                 pass
 
-        return template.render(**vars)
+        return cast(str, template.render(**vars))
 
     def render(self, template: str, **vars: Any) -> str:
         compiled_template = self.lookup.get_template(template)

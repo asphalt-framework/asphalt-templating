@@ -15,7 +15,7 @@ BASEDIR = Path(asphalt.templating.__file__).parent
         ("asphalt.templating/renderers", BASEDIR / "renderers"),
     ],
 )
-def test_package_to_directory(package_path, expected):
+def test_package_to_directory(package_path: str, expected: Path) -> None:
     assert package_to_directory(package_path) == str(expected)
 
 
@@ -29,6 +29,6 @@ def test_package_to_directory(package_path, expected):
         ),
     ],
 )
-def test_package_to_directory_fail(package_path, errormsg):
+def test_package_to_directory_fail(package_path: str, errormsg: str) -> None:
     exc = pytest.raises(LookupError, package_to_directory, package_path)
     assert str(exc.value) == errormsg

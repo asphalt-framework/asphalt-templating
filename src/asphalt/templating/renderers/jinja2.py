@@ -30,9 +30,9 @@ class Jinja2Renderer(TemplateRenderer):
 
     def __init__(
         self,
-        environment: Environment | dict[str, Any] = None,
+        environment: Environment | dict[str, Any] | None = None,
         loader_class: type | str = PackageLoader,
-        **loader_args,
+        **loader_args: Any,
     ) -> None:
         if environment is None:
             environment = {}
@@ -58,6 +58,6 @@ class Jinja2Renderer(TemplateRenderer):
         compiled_template = self.environment.get_template(template)
         return self._render(compiled_template, vars)
 
-    def render_string(self, source: str, **vars) -> str:
+    def render_string(self, source: str, **vars: Any) -> str:
         template = self.environment.from_string(source)
         return self._render(template, vars)

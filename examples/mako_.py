@@ -11,23 +11,22 @@ application has been installed.
 from datetime import datetime
 from pathlib import Path
 
-from asphalt.core import CLIApplicationComponent, Context, run_application
+from asphalt.core import CLIApplicationComponent, get_resource_nowait, run_application
 
-from asphalt.templating._api import TemplateRenderer
+from asphalt.templating import TemplateRenderer
 
 
 class ApplicationComponent(CLIApplicationComponent):
-    async def start(self, ctx: Context):
+    async def start(self) -> None:
         this_directory = str(Path(__file__).parent)
         self.add_component(
             "templating", backend="mako", options={"directories": [this_directory]}
         )
-        await super().start(ctx)
 
-    async def run(self, ctx: Context):
-        renderer = ctx.require_resource(TemplateRenderer)
+    async def run(self) -> None:
+        renderer = get_resource_nowait(TemplateRenderer)  # type: ignore[type-abstract]
         rendered = renderer.render("demo.mako", now=datetime.now())
         print(rendered)
 
 
-run_application(ApplicationComponent())
+run_application(ApplicationComponent)
