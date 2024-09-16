@@ -2,9 +2,9 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-from asphalt.core import Context
 from pytest import FixtureRequest
 
+from asphalt.core import Context
 from asphalt.templating.api import TemplateRenderer
 from asphalt.templating.renderers.django import DjangoRenderer
 from asphalt.templating.renderers.jinja2 import Jinja2Renderer

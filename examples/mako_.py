@@ -12,7 +12,6 @@ from datetime import datetime
 from pathlib import Path
 
 from asphalt.core import CLIApplicationComponent, Context, run_application
-
 from asphalt.templating.api import TemplateRenderer
 
 

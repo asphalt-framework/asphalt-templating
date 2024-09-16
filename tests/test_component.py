@@ -1,6 +1,6 @@
 import pytest
-from asphalt.core.context import Context
 
+from asphalt.core.context import Context
 from asphalt.templating.api import TemplateRenderer
 from asphalt.templating.component import TemplatingComponent
 from asphalt.templating.renderers.jinja2 import Jinja2Renderer
