@@ -11,9 +11,9 @@ regardless of where the application has been installed.
 from pathlib import Path
 from uuid import uuid1
 
-from asphalt.core import CLIApplicationComponent, Context, run_application
 from jinja2 import FileSystemLoader
 
+from asphalt.core import CLIApplicationComponent, Context, run_application
 from asphalt.templating.api import TemplateRenderer
 
 
