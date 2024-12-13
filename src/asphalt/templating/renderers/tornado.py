@@ -4,6 +4,7 @@ from typing import Any
 
 from tornado.template import Loader, Template
 
+from asphalt.core import NoCurrentContext, current_context
 from asphalt.templating._api import TemplateRenderer
 from asphalt.templating._utils import package_to_directory
 

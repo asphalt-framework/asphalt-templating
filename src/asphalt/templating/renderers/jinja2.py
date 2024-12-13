@@ -6,6 +6,7 @@ from jinja2 import Template
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
 
+from asphalt.core import NoCurrentContext, current_context, resolve_reference
 from asphalt.templating._api import TemplateRenderer
 
 

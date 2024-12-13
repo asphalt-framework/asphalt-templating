@@ -6,6 +6,7 @@ from typing import Any, cast
 from mako.lookup import TemplateLookup
 from mako.template import Template
 
+from asphalt.core import NoCurrentContext, current_context
 from asphalt.templating._api import TemplateRenderer
 from asphalt.templating._utils import package_to_directory
 
