@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from asphalt.core import Context, add_resource, get_resource_nowait
 
+from asphalt.core import Context, add_resource, get_resource_nowait
 from asphalt.templating import TemplateRenderer, TemplatingComponent
 from asphalt.templating.renderers.jinja2 import Jinja2Renderer
 

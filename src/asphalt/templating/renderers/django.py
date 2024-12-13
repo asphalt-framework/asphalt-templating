@@ -3,10 +3,10 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any
 
-from asphalt.core import NoCurrentContext, current_context
 from django.template import Engine, Template
 from django.template.context import Context
 
+from asphalt.core import NoCurrentContext, current_context
 from asphalt.templating._api import TemplateRenderer
 from asphalt.templating._utils import package_to_directory
 
