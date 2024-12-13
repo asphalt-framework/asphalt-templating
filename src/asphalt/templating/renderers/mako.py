@@ -3,7 +3,6 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any, cast
 
-from asphalt.core import NoCurrentContext, current_context
 from mako.lookup import TemplateLookup
 from mako.template import Template
 
