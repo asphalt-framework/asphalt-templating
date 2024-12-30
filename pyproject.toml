@@ -26,7 +26,7 @@ classifiers = [
 ]
 requires-python = ">= 3.9"
 dependencies = [
-    "asphalt ~= 4.8",
+    "asphalt @ git+https://github.com/asphalt-framework/asphalt",
 ]
 dynamic = ["version"]
 
@@ -46,6 +46,7 @@ test = [
 ]
 doc = [
     "asphalt-templating[django,mako,jinja2,tornado]",
+    "packaging",
     "Sphinx >= 7.0",
     "sphinx_rtd_theme >= 1.3.0",
     "sphinx-autodoc-typehints >= 1.22",
@@ -71,20 +72,21 @@ extend-select = [
     "I",            # isort
     "ISC",          # flake8-implicit-str-concat
     "PGH",          # pygrep-hooks
-    "RUF100",       # unused noqa (yesqa)
+    "RUF",          # Ruff-specific rules
     "UP",           # pyupgrade
     "W",            # pycodestyle warnings
 ]
 
 [tool.ruff.lint.isort]
 known-first-party = ["asphalt.templating"]
+known-third-party = ["asphalt.core"]
 
 [tool.pytest.ini_options]
-addopts = "-rsx --tb=short"
+addopts = ["-rsfE", "--tb=short"]
 testpaths = ["tests"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 strict = true
 explicit_package_bases = true
 mypy_path = ["src", "tests", "examples"]
@@ -98,17 +100,14 @@ branch = true
 show_missing = true
 
 [tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py37, py38, py39, py310, py311, pypy3
+env_list = ["py39", "py310", "py311", "py312", "py313", "pypy3"]
 skip_missing_interpreters = true
-isolated_build = true
 
-[testenv]
-extras = test
-commands = python -m pytest {posargs}
+[tool.tox.env_run_base]
+commands = [["python", "-m", "pytest", { replace = "posargs", extend = true }]]
+package = "editable"
+extras = ["test"]
 
-[testenv:docs]
-extras = doc
-commands = sphinx-build docs build/sphinx
-"""
+[tool.tox.env.docs]
+commands = [["sphinx-build", "-W", "docs", "build/sphinx", { replace = "posargs", extend = true }]]
+extras = ["doc"]

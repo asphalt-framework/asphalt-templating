@@ -11,13 +11,13 @@ regardless of where the application has been installed.
 from pathlib import Path
 from uuid import uuid1
 
-from jinja2 import FileSystemLoader
-
 from asphalt.core import (
     CLIApplicationComponent,
     get_resource_nowait,
     run_application,
 )
+from jinja2 import FileSystemLoader
+
 from asphalt.templating import TemplateRenderer
 
 

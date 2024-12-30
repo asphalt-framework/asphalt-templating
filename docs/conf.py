@@ -7,6 +7,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
     "sphinx_autodoc_typehints",
+    "sphinx_rtd_theme",
 ]
 
 templates_path = ["_templates"]
@@ -25,6 +26,8 @@ language = "en"
 exclude_patterns = ["_build"]
 pygments_style = "sphinx"
 autodoc_default_options = {"members": True, "show-inheritance": True}
+autodoc_inherit_docstrings = False
+autodoc_mock_imports = ["django"]
 highlight_language = "python3"
 todo_include_todos = False
 

@@ -3,12 +3,12 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any
 
+from asphalt.core import NoCurrentContext, current_context
 from django.template import Engine, Template
 from django.template.context import Context
 
-from asphalt.core import NoCurrentContext, current_context
-from asphalt.templating._api import TemplateRenderer
-from asphalt.templating._utils import package_to_directory
+from .._api import TemplateRenderer
+from .._utils import package_to_directory
 
 
 class DjangoRenderer(TemplateRenderer):
@@ -20,7 +20,7 @@ class DjangoRenderer(TemplateRenderer):
     :param package_paths: if given, looks up the directories containing the given
         package and fills in or extends the ``dirs`` argument for
         :class:`~django.template.Engine`. The value will be interpreted by
-        :func:`~asphalt.templating.util.package_to_directory`.
+        :func:`~asphalt.templating.package_to_directory`.
     """
 
     __slots__ = "engine"

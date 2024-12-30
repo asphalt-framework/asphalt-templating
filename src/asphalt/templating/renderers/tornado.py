@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
+from asphalt.core import NoCurrentContext, current_context
 from tornado.template import Loader, Template
 
-from asphalt.core import NoCurrentContext, current_context
-from asphalt.templating._api import TemplateRenderer
-from asphalt.templating._utils import package_to_directory
+from .._api import TemplateRenderer
+from .._utils import package_to_directory
 
 
 class TornadoRenderer(TemplateRenderer):
@@ -16,7 +16,7 @@ class TornadoRenderer(TemplateRenderer):
     :param package_path: if given, looks up the directory containing the given package
         and fills in he ``root_directory`` argument for
         :class:`~tornado.template.Loader`. The value will be interpreted by
-        :func:`~asphalt.templating.util.package_to_directory`.
+        :func:`~asphalt.templating.package_to_directory`.
     :param loader_args: extra arguments to pass to :class:`~tornado.template.Loader`
     """
 

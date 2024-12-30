@@ -3,12 +3,12 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any, cast
 
+from asphalt.core import NoCurrentContext, current_context
 from mako.lookup import TemplateLookup
 from mako.template import Template
 
-from asphalt.core import NoCurrentContext, current_context
-from asphalt.templating._api import TemplateRenderer
-from asphalt.templating._utils import package_to_directory
+from .._api import TemplateRenderer
+from .._utils import package_to_directory
 
 
 class MakoRenderer(TemplateRenderer):
@@ -24,7 +24,7 @@ class MakoRenderer(TemplateRenderer):
     :param package_paths: if given, looks up the directories containing the given
         package and fills in the ``directories`` argument for
         :class:`~mako.lookup.TemplateLookup`. The value will be interpreted by
-        :func:`~asphalt.templating.util.package_to_directory`.
+        :func:`~asphalt.templating.package_to_directory`.
     :param loader_args: extra arguments to pass to :class:`~mako.lookup.TemplateLookup`
     """
 
