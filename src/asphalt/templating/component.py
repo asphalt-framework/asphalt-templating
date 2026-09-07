@@ -4,6 +4,7 @@ import logging
 from typing import Any
 
 from asphalt.core import Component, Context, PluginContainer, qualified_name
+
 from asphalt.templating.api import TemplateRenderer
 
 template_renderers = PluginContainer("asphalt.templating.renderers", TemplateRenderer)
